@@ -9,11 +9,15 @@ body {
 }
 
 @theme {
-  --color-primary: #2563eb; /* Blue */
+  --color-primary: #2563eb; /* Blue rgb(131 231 229)  #5f6fff*/
   --color-secondary: #14b8a6; /* Teal */
   --color-dark: #0f172a; /* Dark Navy */
   --color-light: #f8fafc; /* Background */
   --color-accent: #38bdf8; /* Sky Blue */
+
+  /* Primary Blue: #1798D4
+Dark Blue: #0F7FBC
+Light Blue: #42B7E8 */
 
   --font-poppins: 'Poppins', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
