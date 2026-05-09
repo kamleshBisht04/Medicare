@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { assets } from '../assets/assets';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const navLinks = [
@@ -30,7 +31,7 @@ const Navbar = () => {
             key={link.path}
             to={link.path}
             className={({ isActive }) =>
-              `group relative h-6 overflow-hidden ${
+              `group relative h-6 cursor-pointer overflow-hidden  uppercase ${
                 isActive ? 'text-primary' : 'hover:text-primary text-gray-700'
               }`
             }
@@ -38,19 +39,19 @@ const Navbar = () => {
             {({ isActive }) => (
               <>
                 {/* Top Text */}
-                <span className="block transition-transform duration-300 group-hover:-translate-y-full">
+                <span className="pointer-events-none block transition-transform duration-300 group-hover:-translate-y-full">
                   {link.name}
                 </span>
 
                 {/* Bottom Text */}
-                <span className="absolute top-full left-0 block transition-transform duration-300 group-hover:-translate-y-full">
+                <span className="pointer-events-none absolute top-full left-0 block transition-transform duration-300 group-hover:-translate-y-full">
                   {link.name}
                 </span>
 
                 {/* Underline */}
                 <span
-                  className={`bg-primary absolute bottom-0 left-0 h-[1px] rounded-3xl text-center transition-all duration-300 ${
-                    isActive ? 'w-full' : 'w-0 '
+                  className={`bg-primary absolute bottom-0 left-0 h-[1px] rounded-3xl transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0'
                   }`}
                 ></span>
               </>
@@ -61,7 +62,10 @@ const Navbar = () => {
 
       {/* Button */}
       <div className="hidden md:block">
-        <button className="bg-primary hover:bg-primary-dark rounded-full px-8 py-2 text-white transition">
+        <button
+          onClick={() => navigate('/login')}
+          className="bg-primary hover:bg-primary-dark rounded-full px-8 py-2 text-white transition"
+        >
           Create account
         </button>
       </div>
