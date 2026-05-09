@@ -19,7 +19,7 @@ const Navbar = () => {
         <img
           src={assets.logo}
           alt="medicare logo"
-          className="h-10 w-44 md:h-14"
+          className="h-10 w-full md:h-[3.5rem]"
         />
       </NavLink>
 
