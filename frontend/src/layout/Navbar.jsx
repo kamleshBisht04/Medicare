@@ -49,7 +49,7 @@ const Navbar = () => {
 
                 {/* Underline */}
                 <span
-                  className={`bg-primary absolute bottom-0 left-0 h-[1px] rounded-3xl transition-all duration-300 ${
+                  className={`bg-primary absolute bottom-0 left-0 h-[1px] rounded-3xl text-center transition-all duration-300 ${
                     isActive ? 'w-full' : 'w-0 '
                   }`}
                 ></span>
