@@ -31,6 +31,11 @@ import doc12 from './doc12.png';
 import doc13 from './doc13.png';
 import doc14 from './doc14.png';
 import doc15 from './doc15.png';
+import cust_1 from './cust_1.jpg';
+import cust_2 from './cust_2.png';
+import cust_3 from './cust_3.png';
+import cust_4 from './cust_4.png';
+import cust_5 from './cust_5.png';
 import Dermatologist from './Dermatologist.svg';
 import Gastroenterologist from './Gastroenterologist.svg';
 import General_physician from './General_physician.svg';
@@ -57,7 +62,14 @@ export const assets = {
   upload_icon,
   stripe_logo,
   razorpay_logo,
+  cust_1,
+  cust_2,
+  cust_3,
+  cust_4,
+  cust_5,
 };
+
+export const customer = [cust_1, cust_2, cust_3, cust_4, cust_5];
 
 export const specialityData = [
   {

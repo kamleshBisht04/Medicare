@@ -30,7 +30,7 @@ const Navbar = () => {
         {NavLinks.map((link, index) => (
           <NavLink key={index} to={link.path}>
             {link.name}
-            <hr className="bg-primary m-auto hidden h-0.5 w-3/5 border-none outline-none" />
+            <hr className="bg-primary-text m-auto hidden h-0.5 w-3/5 border-none outline-none" />
           </NavLink>
         ))}
       </ul>
