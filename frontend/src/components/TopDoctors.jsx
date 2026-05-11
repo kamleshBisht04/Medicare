@@ -84,6 +84,15 @@ const TopDoctors = () => {
           </div>
         ))}
       </div>
+      {/* more doct */}
+      <div className="mt-10 flex justify-center">
+        <p
+          onClick={() => navigate('/doctors')}
+          className="hover:bg-primary/88 cursor-pointer rounded-full border border-gray-300 bg-blue-50 px-8 py-3 text-sm font-medium text-gray-700 transition-all duration-300 hover:text-white"
+        >
+          More Doctors
+        </p>
+      </div>
     </section>
   );
 };
