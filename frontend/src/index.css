@@ -11,18 +11,9 @@ body {
 @theme {
   --color-primary: #3362a5;
   --color-primary-dark: #003b8e;
-  /* --color-primary-dark: #1a4f99; */
   --color-light: #5ab5d5;
 
-  /* --color-primary: #31a3cb;  */
-  /* --color-primary-dark: #2c93b7;  */
-
-  --color-secondary: #14b8a6; /* Teal */
-  --color-accent: #38bdf8; /* Sky Blue */
-
-  /* Primary Blue: #1798D4
-Dark Blue: #0F7FBC
-Light Blue: #42B7E8 */
+  --color-primary-text: #07304a;
 
   --font-poppins: 'Poppins', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
@@ -36,4 +27,8 @@ button {
 
 .active hr {
   @apply block;
+}
+
+.active p {
+  @apply text-primary;
 }
