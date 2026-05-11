@@ -1,0 +1,41 @@
+<svg width="100%" viewBox="0 0 680 210" role="img" xmlns="http://www.w3.org/2000/svg" style=""><defs><mask id="imagine-text-gaps-l7onb7" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="680" height="210" fill="white"/><rect x="191" y="41.79999923706055" width="370.185546875" height="92" fill="black" rx="2"/><rect x="277.9437561035156" y="124" width="236.1125030517578" height="18.40000057220459" fill="black" rx="2"/></mask></defs>
+<title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Medicare — Care You Can Trust</title>
+<desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Medicare professional website logo with clean medical shield icon</desc>
+
+<!-- ===== SHIELD ICON ===== -->
+<!-- Shield outer shape -->
+<path d="M100 18 L155 42 L155 100 Q155 145 100 172 Q45 145 45 100 L45 42 Z" fill="#1565a7" style="fill:rgb(21, 101, 167);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<!-- Shield inner lighter layer -->
+<path d="M100 28 L147 49 L147 100 Q147 138 100 162 Q53 138 53 100 L53 49 Z" fill="#1a7cbf" style="fill:rgb(26, 124, 191);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<!-- Shield top highlight strip -->
+<path d="M100 28 L147 49 L147 60 L53 60 L53 49 Z" fill="#2596d4" style="fill:rgb(37, 150, 212);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Cross inside shield - bold and clean -->
+<rect x="88" y="72" width="24" height="60" rx="5" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<rect x="74" y="86" width="52" height="24" rx="5" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Small heart inside cross center -->
+<path d="M100 109 Q94 103 94 98 Q94 94 98 94 Q100 96 100 96 Q100 96 102 94 Q106 94 106 98 Q106 103 100 109Z" fill="#e74c3c" style="fill:rgb(231, 76, 60);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Shield bottom curved base -->
+<path d="M70 158 Q100 172 130 158" fill="none" stroke="#2596d4" stroke-width="3" stroke-linecap="round" style="fill:none;stroke:rgb(37, 150, 212);color:rgb(0, 0, 0);stroke-width:3px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Outer ring around shield -->
+<path d="M100 14 L159 39 L159 100 Q159 150 100 178 Q41 150 41 100 L41 39 Z" fill="none" stroke="#2596d4" stroke-width="2.5" style="fill:none;stroke:rgb(37, 150, 212);color:rgb(0, 0, 0);stroke-width:2.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Two small dots at shield shoulders -->
+<circle cx="41" cy="39" r="4" fill="#2596d4" style="fill:rgb(37, 150, 212);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<circle cx="159" cy="39" r="4" fill="#2596d4" style="fill:rgb(37, 150, 212);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<circle cx="100" cy="178" r="4" fill="#2596d4" style="fill:rgb(37, 150, 212);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- ===== WORDMARK ===== -->
+<text x="195" y="115" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="700" fill="#0f3f6e" letter-spacing="-2" style="fill:rgb(15, 63, 110);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Georgia, &quot;Times New Roman&quot;, serif;font-size:78px;font-weight:700;text-anchor:start;dominant-baseline:auto">Medicare</text>
+
+<!-- Tagline lines -->
+<line x1="197" y1="132" x2="290" y2="132" stroke="#2596d4" stroke-width="1.8" mask="url(#imagine-text-gaps-l7onb7)" style="fill:rgb(0, 0, 0);stroke:rgb(37, 150, 212);color:rgb(0, 0, 0);stroke-width:1.8px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<line x1="502" y1="132" x2="596" y2="132" stroke="#2596d4" stroke-width="1.8" mask="url(#imagine-text-gaps-l7onb7)" style="fill:rgb(0, 0, 0);stroke:rgb(37, 150, 212);color:rgb(0, 0, 0);stroke-width:1.8px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Tagline -->
+<text x="396" y="138" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" fill="#2596d4" text-anchor="middle" letter-spacing="4.5" style="fill:rgb(37, 150, 212);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Arial, Helvetica, sans-serif;font-size:13px;font-weight:600;text-anchor:middle;dominant-baseline:auto">CARE YOU CAN TRUST</text>
+
+</svg>

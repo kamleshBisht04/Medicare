@@ -33,3 +33,7 @@ Light Blue: #42B7E8 */
 button {
   cursor: pointer;
 }
+
+.active hr {
+  @apply block;
+}
