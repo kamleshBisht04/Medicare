@@ -2,12 +2,16 @@ import { assets, customer } from '../assets/assets';
 
 const Header = () => {
   return (
-    <section className="bg-primary mt-10 rounded-3xl">
+    <section className="bg-primary-dark/88 mt-10 rounded-3xl">
       <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-12">
         <div className="grid items-center gap-10 md:grid-cols-2">
+         
           {/* left content */}
           <div className="py-10 text-white md:py-12">
-            <h1 className="text-3xl leading-tight font-semibold md:text-4xl lg:text-5xl">
+             <span className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur animate-pulse">
+            Trusted Healthcare Platform
+          </span>
+            <h1 className="text-3xl mt-4 leading-tight font-semibold md:text-4xl lg:text-5xl">
               Book Appointment <br />
               With Trusted Doctors
             </h1>
@@ -15,7 +19,7 @@ const Header = () => {
               Simply browse through our extensive list of trusted doctors,
               schedule your appointment hassle-free.
             </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-8 grid grid-cols-1 md:flex flex-col gap-4 sm:flex-row">
               <button className="text-primary-dark rounded-full bg-white px-7 py-3 font-semibold transition-all duration-300 hover:scale-105">
                 Book Appointment
               </button>
@@ -24,7 +28,7 @@ const Header = () => {
               </button>
             </div>
             {/* Users */}
-            <div className="mt-10 flex items-center gap-4">
+            <div className="mt-10 flex items-center flex-wrap gap-4">
               <div className="flex -space-x-5 pr-3">
                 {customer.map((img, index) => (
                   <img
