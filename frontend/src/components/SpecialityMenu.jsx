@@ -14,6 +14,7 @@ const SpecialityMenu = () => {
       <div className="scrollbar-hide flex w-full gap-8 overflow-scroll pt-5 sm:justify-center">
         {specialityData.map((item, index) => (
           <Link
+            to={`/doctors/${item.speciality}`}
             key={index}
             className="flex flex-shrink-0 cursor-pointer flex-col items-center text-xs transition-all duration-500 hover:translate-y-[-10px]"
           >

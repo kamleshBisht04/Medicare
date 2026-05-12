@@ -5,7 +5,7 @@ const TopDoctors = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="mx-auto my-12 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="lg:px-auto mx-auto my-12 w-full max-w-[100rem] px-4 sm:px-6">
       {/* heading */}
       <div className="flex flex-col items-center gap-3 text-center">
         <h1 className="font-outfit text-2xl font-semibold text-gray-800 sm:text-3xl md:text-4xl">

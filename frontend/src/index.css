@@ -9,11 +9,10 @@ body {
 }
 
 @theme {
+  --color-primary: #4f46e5;
+  --color-primary-dark: #4f46e5;
+  --color-prime: #3730a3;
 
-  --color-primary: #4F46E5;
-  --color-primary-dark: #4F46E5;
-  --color-prime: #3730A3;
-  
   /* --color-primary: #3362a5;
   --color-primary-dark: #003b8e;
   --color-prime: #2e5895; */
@@ -24,6 +23,15 @@ body {
   --font-outfit: 'Outfit', sans-serif;
 
   --grid-cols-auto: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+@layer components {
+  .speciality-btn {
+    @apply w-[94vw] cursor-pointer rounded border border-gray-300 py-1.5 pr-16 pl-3 transition-all hover:bg-primary/20 sm:w-auto;
+  }
+  .speciality-btn-active {
+    @apply bg-primary-dark text-white hover:bg-primary-dark;
+  }
 }
 
 button {
