@@ -9,9 +9,14 @@ body {
 }
 
 @theme {
-  --color-primary: #3362a5;
+
+  --color-primary: #4F46E5;
+  --color-primary-dark: #4F46E5;
+  --color-prime: #3730A3;
+  
+  /* --color-primary: #3362a5;
   --color-primary-dark: #003b8e;
-  --color-prime: #2e5895;
+  --color-prime: #2e5895; */
 
   --color-primary-text: #07304a;
 

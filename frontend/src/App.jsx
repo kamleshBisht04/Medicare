@@ -7,6 +7,7 @@ import Contact from '@/pages/Contact';
 import MyProfile from '@/pages/MyProfile';
 import MyAppointments from '@/pages/MyAppointments';
 import Navbar from '@/layout/Navbar';
+import Footer from './layout/footer';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/my-appointments" element={<MyAppointments />} />
       </Routes>
+      <Footer />
     </div>
   );
 };

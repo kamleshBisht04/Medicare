@@ -22,12 +22,12 @@ const Header = () => {
   }, []);
 
   return (
-    <section className="bg-primary-dark/90 mt-10 overflow-hidden rounded-3xl">
+    <section className="bg-primary mt-10 overflow-hidden rounded-3xl">
       <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-10">
         <div className="grid items-center gap-10 md:grid-cols-2">
           {/* left content */}
           <div className="py-10 text-white md:py-12">
-            <span className="animate-pulse rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur">
+            <span className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur">
               Trusted Healthcare Platform
             </span>
 

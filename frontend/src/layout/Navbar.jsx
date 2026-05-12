@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { assets } from '../assets/assets';
 import { NavLink, useNavigate } from 'react-router-dom';
-
-const NavLinks = [
-  { name: 'HOME', path: '/' },
-  { name: 'ALL DOCTORS', path: '/doctors' },
-  { name: 'ABOUT', path: '/about' },
-  { name: 'CONTACT', path: '/contact' },
-];
+import { NavLinks } from '../data/NavLinks';
 
 const Navbar = () => {
   const navigate = useNavigate();
