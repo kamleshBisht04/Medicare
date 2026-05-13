@@ -4,6 +4,7 @@ import { specialities } from '../data/specialities';
 
 const Doctors = () => {
   const navigate = useNavigate();
+
   const { speciality } = useParams();
 
   const filterDoctors = speciality
@@ -39,8 +40,9 @@ const Doctors = () => {
         <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filterDoctors.map((item, index) => (
             <div
+              onClick={() => navigate(`/doctors/appointment/${item._id}`)}
               key={index}
-              className="flex min-h-[380px] flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-2 "
+              className="flex min-h-[380px] flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-4 cursor-pointer"
             >
               {/* image */}
               <div className="bg-blue-50">

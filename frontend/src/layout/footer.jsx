@@ -5,7 +5,7 @@ import { NavLinks } from '../data/NavLinks';
 
 const Footer = () => {
   return (
-    <footer className="mt-24 border-t border-gray-200 bg-slate-100 px-[10%]">
+    <footer className="mt-32 border-t border-gray-200 bg-slate-100 px-[10%]">
       <div className="max-w-8xl grid gap-16 px-6 py-14 md:grid-cols-3 md:px-10 lg:px-16">
         {/* Left Section */}
         <div>

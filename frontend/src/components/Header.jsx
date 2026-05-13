@@ -24,7 +24,7 @@ const Header = () => {
   }, []);
 
   return (
-    <section className="bg-primary mt-10 overflow-hidden rounded-3xl">
+    <section className="gradient-banner mt-10 overflow-hidden rounded-3xl">
       <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-10">
         <div className="grid items-center gap-10 md:grid-cols-2">
           {/* left content */}
