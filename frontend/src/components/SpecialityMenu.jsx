@@ -1,7 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { specialityData } from '../assets/assets';
 const SpecialityMenu = () => {
-  const navigate = useNavigate();
   return (
     <div
       className="flex flex-col items-center gap-4 py-16 text-gray-800"

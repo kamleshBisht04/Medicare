@@ -1,8 +1,11 @@
-import { doctors } from '../assets/assets';
+// import { doctors } from '../assets/assets';
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../context/AppContext';
+
 
 const TopDoctors = () => {
   const navigate = useNavigate();
+  const { doctors } = useAppContext();
 
   return (
     <section className="lg:px-auto mx-auto my-12 w-full max-w-[100rem] px-4 sm:px-6">

@@ -1,11 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { doctors } from '../assets/assets';
+
 import { specialities } from '../data/specialities';
+import { useAppContext } from '../context/AppContext';
 
 const Doctors = () => {
   const navigate = useNavigate();
-
   const { speciality } = useParams();
+  const { doctors } = useAppContext();
 
   const filterDoctors = speciality
     ? doctors.filter((doc) => doc.speciality === speciality)
@@ -42,7 +43,7 @@ const Doctors = () => {
             <div
               onClick={() => navigate(`/doctors/appointment/${item._id}`)}
               key={index}
-              className="flex min-h-[380px] flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-4 cursor-pointer"
+              className="flex min-h-[380px] cursor-pointer flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-4"
             >
               {/* image */}
               <div className="bg-blue-50">
