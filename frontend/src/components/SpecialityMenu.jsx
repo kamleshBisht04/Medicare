@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { specialityData } from '../assets/assets';
 const SpecialityMenu = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="flex flex-col items-center gap-4 py-16 text-gray-800"
@@ -14,6 +15,7 @@ const SpecialityMenu = () => {
       <div className="scrollbar-hide flex w-full gap-8 overflow-scroll pt-5 sm:justify-center">
         {specialityData.map((item, index) => (
           <Link
+            onClick={() => scrollTo(0, 0)}
             to={`/doctors/${item.speciality}`}
             key={index}
             className="flex flex-shrink-0 cursor-pointer flex-col items-center text-xs transition-all duration-500 hover:translate-y-[-10px]"

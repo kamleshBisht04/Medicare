@@ -9,7 +9,12 @@ const Footer = () => {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-14 md:grid-cols-3 md:px-10 lg:px-16">
         {/* Left Section */}
         <div>
-          <img src={assets.logo} alt="Medicare Logo" className="w-40" />
+          <img
+            onClick={() => scrollTo(0, 0)}
+            src={assets.logo}
+            alt="Medicare Logo"
+            className="w-[180px] cursor-pointer md:h-[55px] md:w-[250px]"
+          />
 
           <p className="mt-5 max-w-sm text-sm leading-6 text-gray-500">
             Medicare helps you connect with trusted doctors and book
@@ -41,6 +46,7 @@ const Footer = () => {
             {NavLinks.map((link, index) => (
               <li key={index}>
                 <Link
+                  onClick={() => scrollTo(0, 0)}
                   to={link.path}
                   className="hover:text-primary-dark text-sm font-medium transition"
                 >

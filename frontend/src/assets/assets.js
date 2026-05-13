@@ -11,6 +11,7 @@ import logo from './medicare_logo.png';
 
 import dropdown_icon from './dropdown_icon.svg';
 import menu_icon from './menu_icon.svg';
+// import logo from './logo.svg'
 import cross_icon from './cross_icon.png';
 import chats_icon from './chats_icon.svg';
 import verified_icon from './verified_icon.svg';
@@ -73,6 +74,7 @@ export const assets = {
   header_imgs,
   header_img1,
   header_img2,
+  
 };
 
 export const customer = [cust_1, cust_2, cust_3, cust_4, cust_5];

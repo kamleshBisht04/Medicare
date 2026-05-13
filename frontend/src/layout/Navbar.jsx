@@ -15,7 +15,7 @@ const Navbar = () => {
       {/* Logo */}
       <img
         onClick={() => navigate('/')}
-        className="w-30 cursor-pointer md:w-44"
+        className="w-[180px] cursor-pointer md:w-[250px] md:h-[60px]"
         src={assets.logo}
         alt="medicare logo"
       />

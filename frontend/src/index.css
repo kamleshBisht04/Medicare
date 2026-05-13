@@ -7,6 +7,9 @@ body {
   background-color: #ffffff;
   color: #0f172a;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 @theme {
   --color-primary: #4f46e5;
@@ -27,10 +30,10 @@ body {
 
 @layer components {
   .speciality-btn {
-    @apply w-[94vw] cursor-pointer rounded border border-gray-300 py-1.5 pr-16 pl-3 transition-all hover:bg-primary/20 sm:w-auto;
+    @apply hover:bg-primary/20 w-[94vw] cursor-pointer rounded border border-gray-300 py-1.5 pr-16 pl-3 transition-all sm:w-auto;
   }
   .speciality-btn-active {
-    @apply bg-primary-dark text-white hover:bg-primary-dark;
+    @apply bg-primary-dark hover:bg-primary-dark text-white;
   }
 }
 

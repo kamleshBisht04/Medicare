@@ -8,6 +8,7 @@ import MyProfile from '@/pages/MyProfile';
 import MyAppointments from '@/pages/MyAppointments';
 import Navbar from '@/layout/Navbar';
 import Footer from './layout/footer';
+import Appointment from './pages/Appointment';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctors/:speciality" element={<Doctors />} />
+        <Route path="/appointment/:id" element={<Appointment />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

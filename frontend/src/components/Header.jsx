@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { assets, customer } from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate();
   const headerImages = [
     assets.header_img,
     assets.header_img1,
@@ -43,7 +45,13 @@ const Header = () => {
 
             {/* buttons */}
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <button className="text-primary-dark rounded-full bg-white px-7 py-3 font-semibold transition-all duration-300 hover:scale-105">
+              <button
+                onClick={() => {
+                  navigate('/doctors');
+                  scrollTo(0, 0);
+                }}
+                className="text-primary-dark rounded-full bg-white px-7 py-3 font-semibold transition-all duration-300 hover:scale-105"
+              >
                 Book Appointment
               </button>
 
