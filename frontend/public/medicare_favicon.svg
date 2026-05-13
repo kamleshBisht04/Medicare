@@ -1,0 +1,8 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <title>Medicare Hexagon Icon</title>
+  <polygon points="100,10 168,50 168,130 100,170 32,130 32,50" fill="#ede9fe" stroke="#c7d2fe" stroke-width="1.5"/>
+  <polygon points="100,24 156,58 156,122 100,156 44,122 44,58" fill="#c7d2fe"/>
+  <polygon points="100,38 144,66 144,114 100,142 56,114 56,66" fill="#4f46e5"/>
+  <rect x="80" y="90" width="40" height="14" rx="7" fill="white"/>
+  <rect x="93" y="77" width="14" height="40" rx="7" fill="white"/>
+</svg>
