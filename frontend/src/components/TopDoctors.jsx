@@ -70,7 +70,8 @@ const TopDoctors = () => {
               {/* button */}
               <button
                 onClick={() =>
-                  item.isAvailable && navigate(`/appointment/${item._id}`)
+                  item.isAvailable &&
+                  navigate(`/doctors/appointment/${item._id}`)
                 }
                 disabled={!item.isAvailable}
                 className={`mt-auto flex min-h-[44px] w-full items-center justify-center rounded-xl px-2 py-2 text-center text-[11px] font-medium text-white transition-all duration-300 sm:px-4 sm:text-sm ${

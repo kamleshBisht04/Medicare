@@ -6,10 +6,10 @@ const DoctorBookingCard = ({ doctor, index }) => {
     <div
       onClick={() => navigate(`/doctors/appointment/${doctor._id}`)}
       key={index}
-      className="flex min-h-[380px] cursor-pointer flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-4"
+      className="flex min-h-[380px] cursor-pointer flex-col overflow-hidden rounded-3xl border border-gray-300 bg-white transition-all duration-300 hover:-translate-y-4"
     >
       {/* image */}
-      <div className="bg-blue-50">
+      <div className="overflow-hidden bg-gradient-to-br from-indigo-100 to-blue-50">
         <img
           src={doctor.image}
           alt={doctor.speciality}
@@ -55,12 +55,23 @@ const DoctorBookingCard = ({ doctor, index }) => {
         </div>
 
         {/* doctor name */}
-        <h3 className="mt-4 line-clamp-1 text-base font-semibold text-gray-800 md:text-lg">
+        <h3 className="mt-2 line-clamp-1 text-base font-semibold text-gray-800 md:text-lg">
           {doctor.name}
         </h3>
 
         {/* speciality */}
-        <p className="mt-1 text-sm text-gray-500">{doctor.speciality}</p>
+        <p className="mt-1 text-sm font-semibold text-gray-400">
+          {doctor.speciality}
+        </p>
+
+        <div className="flex items-center gap-2">
+          <p className="text-xs text-gray-400">
+            Experience <span className="font-bold">|</span>
+          </p>
+          <h4 className="text-sm text-gray-400">
+            {doctor.experience || '5+ Years'}
+          </h4>
+        </div>
       </div>
     </div>
   );
