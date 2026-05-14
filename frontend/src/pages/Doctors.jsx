@@ -41,7 +41,7 @@ const Doctors = () => {
         {/* doctors cards */}
         <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filterDoctors.map((item, index) => (
-            <DoctorBookingCard  doctor={item} index={index}/>
+            <DoctorBookingCard doctor={item} index={index} />
           ))}
         </div>
       </div>

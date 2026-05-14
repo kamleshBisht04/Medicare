@@ -9,7 +9,7 @@ const DoctorBookingCard = ({ doctor, index }) => {
       className="flex min-h-[380px] cursor-pointer flex-col overflow-hidden rounded-3xl border border-gray-300 bg-white transition-all duration-300 hover:-translate-y-4"
     >
       {/* image */}
-      <div className="overflow-hidden bg-gradient-to-br from-indigo-100 to-blue-50">
+      <div className="gradient-profile overflow-hidden">
         <img
           src={doctor.image}
           alt={doctor.speciality}

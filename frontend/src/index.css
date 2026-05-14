@@ -30,7 +30,7 @@ html {
 
 @layer components {
   .speciality-btn {
-    @apply hover:bg-primary/20 w-[94vw] cursor-pointer rounded-full font-outfit border border-gray-300 py-1.5 pr-16 pl-3 transition-all sm:w-auto;
+    @apply hover:bg-primary/20 font-outfit w-[94vw] cursor-pointer rounded-full border border-gray-300 py-1.5 pr-16 pl-3 transition-all sm:w-auto;
   }
   .speciality-btn-active {
     @apply bg-primary-dark hover:bg-primary-dark text-white;
@@ -39,6 +39,10 @@ html {
 
 .gradient-banner {
   @apply bg-gradient-to-br from-[#4f46e5] via-[#6366f1] to-[#8b5cf6];
+}
+
+.gradient-profile {
+  @apply bg-gradient-to-br from-indigo-100 to-blue-50;
 }
 
 button {

@@ -11,7 +11,7 @@ const Navbar = () => {
   const [token, setToken] = useState(true);
 
   return (
-    <div className="flex items-center justify-between border-b border-gray-300 py-4 text-sm">
+    <div className="flex items-center justify-between border-b border-gray-300 py-3 text-sm">
       {/* Logo */}
       <img
         onClick={() => navigate('/')}
