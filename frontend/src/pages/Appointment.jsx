@@ -206,12 +206,12 @@ const Appointment = () => {
 
           <div
             onClick={() => scrollTo(0, 0)}
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="grid w-full grid-cols-1 gap-6  sm:grid-cols-2  lg:grid-cols-4 xl:grid-cols-5"
           >
             {relatedDoctors(docInfo)
               .slice(0, 4)
               .map((item, index) => (
-                <DoctorBookingCard key={index} doctor={item} index={index} />
+                <DoctorBookingCard doctor={item} index={index} />
               ))}
           </div>
         </div>

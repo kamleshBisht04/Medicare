@@ -1,9 +1,9 @@
 import appointment_img from './appointment_img.png';
-import header_imgs from './header_imgs.png';
+
 import header_img1 from './header_img1.jpg';
 import header_img2 from './header_img2.jpg';
 import header_img from './header_img.avif';
-import group_profiles from './group_profiles.png';
+// import group_profiles from './group_profiles.png';
 import profile_pic from './profile_pic.png';
 import contact_image from './contact_image.png';
 import about_image from './about_image.png';
@@ -46,13 +46,15 @@ import General_physician from './General_physician.svg';
 import Gynecologist from './Gynecologist.svg';
 import Neurologist from './Neurologist.svg';
 import Pediatricians from './Pediatricians.svg';
+import Orthopedic from './Orthopedic.png';
+import Cardiologist from './Cardiologist.jpg';
 
 export const assets = {
   appointment_img,
   header_img,
-  group_profiles,
   logo,
-
+  Orthopedic,
+  Cardiologist,
   chats_icon,
   verified_icon,
   info_icon,
@@ -71,7 +73,7 @@ export const assets = {
   cust_3,
   cust_4,
   cust_5,
-  header_imgs,
+
   header_img1,
   header_img2,
 };
@@ -88,10 +90,6 @@ export const specialityData = [
     image: Gynecologist,
   },
   {
-    speciality: 'Dermatologist',
-    image: Dermatologist,
-  },
-  {
     speciality: 'Pediatricians',
     image: Pediatricians,
   },
@@ -100,8 +98,20 @@ export const specialityData = [
     image: Neurologist,
   },
   {
+    speciality: 'Orthopedic',
+    image: Orthopedic,
+  },
+  {
+    speciality: 'Dermatologist',
+    image: Dermatologist,
+  },
+  {
     speciality: 'Gastroenterologist',
     image: Gastroenterologist,
+  },
+  {
+    speciality: 'Cardiologist',
+    image: Cardiologist,
   },
 ];
 
