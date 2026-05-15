@@ -1,67 +1,16 @@
+import { Ambulance, Award, BadgeCheck, Stethoscope } from 'lucide-react';
 import { assets } from '../assets/assets';
-import {
-  ShieldCheck,
-  Clock3,
-  HeartPulse,
-  Users,
-  Stethoscope,
-  Award,
-  Ambulance,
-  BadgeCheck,
-} from 'lucide-react';
+import { features, stats } from '../data/features.js';
 
 const About = () => {
-  const features = [
-    {
-      icon: <Clock3 className="text-primary h-8 w-8" />,
-      title: 'Fast Appointment',
-      desc: 'Book doctor appointments instantly without long waiting times.',
-    },
-    {
-      icon: <ShieldCheck className="text-primary h-8 w-8" />,
-      title: 'Trusted Doctors',
-      desc: 'Verified and experienced medical professionals you can trust.',
-    },
-    {
-      icon: <HeartPulse className="text-primary h-8 w-8" />,
-      title: 'Health Monitoring',
-      desc: 'Track your appointments, prescriptions, and health updates easily.',
-    },
-    {
-      icon: <Users className="text-primary h-8 w-8" />,
-      title: '24/7 Support',
-      desc: 'Dedicated healthcare assistance whenever you need help.',
-    },
-  ];
-
-  const stats = [
-    { number: '10K+', label: 'Happy Patients' },
-    { number: '150+', label: 'Expert Doctors' },
-    { number: '25+', label: 'Medical Specialties' },
-    { number: '24/7', label: 'Support Available' },
-  ];
-
   return (
     <div className="px-4 sm:px-8 md:px-14 lg:px-20">
-      {/* Header */}
-      <div className="py-14 text-center">
-        <p className="text-primary text-sm font-semibold tracking-[6px] uppercase">
-          About Us
-        </p>
-
-        <h1 className="mt-3 text-4xl font-bold text-gray-800 md:text-5xl">
-          Your Trusted Healthcare Partner
-        </h1>
-
-        <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-gray-500">
-          Prescripto helps patients connect with trusted doctors, schedule
-          appointments smoothly, and manage healthcare digitally with comfort
-          and confidence.
-        </p>
-      </div>
+      <p className="text-primary my-4 text-sm font-semibold tracking-[6px] uppercase text-center">
+        About Us
+      </p>
 
       {/* About Section */}
-      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div className="grid grid-cols-1 items-center mt-4 gap-12 lg:grid-cols-2">
         {/* Image */}
         <div className="relative">
           <img
@@ -70,7 +19,7 @@ const About = () => {
             alt="about"
           />
 
-          <div className="absolute bottom-5 left-5 rounded-2xl bg-white/90 px-5 py-4 shadow-lg backdrop-blur">
+          <div className="absolute bottom-5 left-5 rounded-2xl  bg-white/90 px-5 py-4 shadow-lg backdrop-blur">
             <div className="flex items-center gap-3">
               <BadgeCheck className="text-green-500" />
               <div>
@@ -92,7 +41,7 @@ const About = () => {
             Modern Medical Platform
           </div>
 
-          <h2 className="text-3xl leading-tight font-bold text-primary">
+          <h2 className="text-primary-dark text-3xl leading-tight font-bold">
             Making Healthcare Simple, Fast & Accessible
           </h2>
 
@@ -160,7 +109,7 @@ const About = () => {
               className="group hover:bg-primary rounded-3xl border border-gray-100 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:text-white hover:shadow-2xl"
             >
               <div className="bg-primary/10 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-300 group-hover:bg-white">
-                {item.icon}
+                {<item.icon className="text-primary h-8 w-8" />}
               </div>
 
               <h3 className="text-xl font-semibold">{item.title}</h3>

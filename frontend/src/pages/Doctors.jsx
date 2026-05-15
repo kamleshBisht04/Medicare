@@ -10,7 +10,7 @@ const Doctors = () => {
   const { doctors } = useAppContext();
 
   const filterDoctors = speciality
-    ? doctors.filter((doc) => doc.speciality === speciality)
+    ? doctors.filter((doc) => doc?.speciality === speciality)
     : doctors;
 
   return (

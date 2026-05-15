@@ -2,7 +2,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
-
 const TopDoctors = () => {
   const navigate = useNavigate();
   const { doctors } = useAppContext();
@@ -32,7 +31,7 @@ const TopDoctors = () => {
               <img
                 src={item.image}
                 alt={item.speciality}
-                className="h-48 w-full object-cover sm:h-52 md:h-56"
+                className="h-48 w-full  object-cover sm:h-52 md:h-56"
               />
             </div>
 

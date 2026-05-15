@@ -1,8 +1,10 @@
 export const specialities = [
-  'General physician',
+  'General Physician',
   'Gynecologist',
-  'Dermatologist',
   'Pediatricians',
   'Neurologist',
+  'Cardiologist',
+  'Orthopedic',
+  'Dermatologist',
   'Gastroenterologist',
 ];

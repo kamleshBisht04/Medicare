@@ -20,7 +20,7 @@ const SpecialityMenu = () => {
             className="flex flex-shrink-0 cursor-pointer flex-col items-center text-xs transition-all duration-500 hover:translate-y-[-10px]"
           >
             <img
-              className="mb-2 w-16 sm:w-24"
+              className="mb-2 w-16 sm:w-24 rounded-full"
               src={item.image}
               alt={item.speciality}
             />

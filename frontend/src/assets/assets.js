@@ -80,7 +80,7 @@ export const customer = [cust_1, cust_2, cust_3, cust_4, cust_5];
 
 export const specialityData = [
   {
-    speciality: 'General physician',
+    speciality: 'General Physician',
     image: General_physician,
   },
   {
@@ -158,7 +158,7 @@ export const doctors = [
     _id: 'doc4',
     name: 'Dr. Ananya Kapoor',
     image: doc4,
-    speciality: 'Pediatrician',
+    speciality: 'Pediatricians',
     degree: 'MBBS, MD',
     experience: '6 Years',
     isAvailable: true,
@@ -254,7 +254,7 @@ export const doctors = [
     _id: 'doc10',
     name: 'Dr. Kavya Menon',
     image: doc10,
-    speciality: 'Pediatrician',
+    speciality: 'Pediatricians',
     degree: 'MBBS, MD',
     experience: '4 Years',
     isAvailable: false,

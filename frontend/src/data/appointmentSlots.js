@@ -64,7 +64,9 @@ export const getAvailableSlots = (docInfo) => {
       currentDate.setMinutes(currentDate.getMinutes() + 60);
     }
 
-    allSlots.push(timeSlots);
+    if (timeSlots.length > 0) {
+      allSlots.push(timeSlots);
+    }
   }
 
   return allSlots;
