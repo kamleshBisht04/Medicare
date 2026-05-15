@@ -1,13 +1,19 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import { useParams } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { useEffect, useState } from 'react';
 import { assets } from '../assets/assets';
+import {
+  daysOfWeek,
+  getAvailableSlots,
+  relatedDoctors,
+} from '../data/appointmentSlots';
+import DoctorBookingCard from '../components/DoctorBookingCard';
 
 const Appointment = () => {
   const { docId } = useParams();
+
   const { doctors, currencySymbol } = useAppContext();
 
   const [docInfo, setDocInfo] = useState(null);
@@ -15,92 +21,30 @@ const Appointment = () => {
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState('');
 
-  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   const experienceYears = parseInt(docInfo?.experience);
 
-  // Fetch doctor info
-  const fetchDocInfo = () => {
+  // Initialize booking state
+  const initializeBookingState = () => {
+    // Fetch doctor info
     const doctor = doctors.find((doc) => doc._id === docId);
     setDocInfo(doctor);
+
+    // Reset slots, index, and time
+    setSlotIndex(0);
+    setSlotTime('');
+    setDocSlots([]);
   };
-
-  // Generate available slots
-  const getAvailableSlots = () => {
-    if (!docInfo) return;
-
-    let allSlots = [];
-
-    // Current date
-    let today = new Date();
-
-    for (let i = 0; i < 7; i++) {
-      let currentDate = new Date(today);
-
-      currentDate.setDate(today.getDate() + i);
-
-      // End time
-      let endTime = new Date(today);
-      endTime.setDate(today.getDate() + i);
-      endTime.setHours(19, 0, 0, 0);
-
-      // Today's timing
-      if (today.getDate() === currentDate.getDate()) {
-        currentDate.setHours(
-          currentDate.getHours() > 8 ? currentDate.getHours() + 1 : 8,
-        );
-
-        currentDate.setMinutes(0);
-      } else {
-        currentDate.setHours(8);
-        currentDate.setMinutes(0);
-      }
-
-      let timeSlots = [];
-
-      while (currentDate < endTime) {
-        let formattedTime = currentDate.toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        });
-
-        let day = currentDate.getDate();
-        let month = currentDate.getMonth() + 1;
-        let year = currentDate.getFullYear();
-
-        const slotDate = day + '_' + month + '_' + year;
-        const slotTime = formattedTime;
-
-        // Check slot booked or not
-        const isSlotAvailable =
-          docInfo.slots_booked &&
-          docInfo.slots_booked[slotDate] &&
-          docInfo.slots_booked[slotDate].includes(slotTime)
-            ? false
-            : true;
-
-        if (isSlotAvailable) {
-          timeSlots.push({
-            datetime: new Date(currentDate),
-            time: formattedTime,
-          });
-        }
-
-        // Next slot after 1 hour
-        currentDate.setMinutes(currentDate.getMinutes() + 60);
-      }
-
-      allSlots.push(timeSlots);
-    }
-
-    setDocSlots(allSlots);
-  };
-
+  // Fetch doctor and slots when docId changes
   useEffect(() => {
-    fetchDocInfo();
+    initializeBookingState();
   }, [docId, doctors]);
 
+  // Generate available slots
   useEffect(() => {
-    getAvailableSlots();
+    if (docInfo) {
+      const slots = getAvailableSlots(docInfo);
+      setDocSlots(slots);
+    }
   }, [docInfo]);
 
   return (
@@ -111,14 +55,16 @@ const Appointment = () => {
           {/* Left */}
           <div className="relative">
             <img
-              className="gradient-profile h-auto w-full rounded-2xl shadow-md sm:max-w-80"
+              className="gradient-profile h-[320px] w-full rounded-2xl object-cover shadow-md sm:h-auto sm:max-w-80"
               src={docInfo.image}
               alt={docInfo.name}
             />
 
             {/* Available Badge */}
             <div
-              className={`absolute top-4 left-4 flex items-center gap-2 rounded-full px-4 py-1 text-sm font-medium text-white shadow-lg ${docInfo.isAvailable ? 'bg-green-500' : 'bg-red-500'}`}
+              className={`absolute top-4 left-4 flex items-center gap-2 rounded-full px-4 py-1 text-sm font-medium text-white shadow-lg ${
+                docInfo.isAvailable ? 'bg-green-500' : 'bg-red-500'
+              }`}
             >
               <span className="h-2 w-2 rounded-full bg-white"></span>
               {docInfo.isAvailable ? 'Available' : 'Not Available'}
@@ -126,9 +72,9 @@ const Appointment = () => {
           </div>
 
           {/* Right */}
-          <div className="font-outfit bg-blue-50 mx-2 mt-[-80px] max-w-[1000px] flex-1 rounded-2xl border border-gray-200 p-8 py-7 pb-4 shadow-sm sm:mx-0 sm:mt-1">
+          <div className="font-outfit relative z-10 mx-2 mt-6 max-w-[1000px] flex-1 rounded-2xl border border-gray-200 p-5 shadow-sm sm:mx-0 sm:mt-1 sm:p-8 sm:py-7 sm:pb-4">
             {/* Name */}
-            <p className="flex items-center gap-2 text-3xl font-semibold text-gray-900">
+            <p className="flex items-center gap-2 text-2xl font-semibold text-gray-900 sm:text-3xl">
               {docInfo.name}
 
               <img className="w-5" src={assets.verified_icon} alt="verified" />
@@ -139,6 +85,7 @@ const Appointment = () => {
               <p>
                 {docInfo.degree} • {docInfo.speciality}
               </p>
+
               {/* Experience Ribbon */}
               <div className="relative">
                 <button className="border-primary bg-primary/10 text-primary rounded-full border px-4 py-1 text-xs font-medium">
@@ -149,7 +96,7 @@ const Appointment = () => {
                   className={`absolute -top-3 -right-3 rounded-full px-2 py-[2px] text-[10px] text-white shadow ${
                     experienceYears < 3
                       ? 'bg-black'
-                      : experienceYears < 3
+                      : experienceYears < 5
                         ? 'bg-primary'
                         : 'bg-green-800'
                   }`}
@@ -192,7 +139,7 @@ const Appointment = () => {
 
           {/* Days */}
           <div className="mt-5 flex w-full items-center gap-3 overflow-x-auto pb-2">
-            {docSlots.length > 0 &&
+            {docSlots?.length > 0 &&
               docSlots.map((item, index) => (
                 <div
                   key={index}
@@ -216,7 +163,7 @@ const Appointment = () => {
 
           {/* Time Slots */}
           <div className="mt-5 flex w-full items-center gap-3 overflow-x-auto pb-2">
-            {docSlots.length > 0 &&
+            {docSlots?.length > 0 &&
               docSlots[slotIndex]?.map((item, index) => (
                 <p
                   key={index}
@@ -233,9 +180,40 @@ const Appointment = () => {
           </div>
 
           {/* Button */}
-          <button className="bg-primary my-8 rounded-full px-14 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-[1.02]">
-            Book an appointment
-          </button>
+
+          {docInfo.isAvailable ? (
+            <button className="bg-primary my-8 rounded-full px-14 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-[1.02]">
+              Book an appointment
+            </button>
+          ) : (
+            <p className="mt-3 text-sm font-medium text-red-500">
+              Currently Unavailable
+            </p>
+          )}
+        </div>
+
+        {/* Related Doctors Section */}
+        <div className="mt-16">
+          <div className="mb-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-800">
+              Related Doctors
+            </h2>
+
+            <p className="mt-2 text-sm text-gray-500">
+              Meet other trusted specialists
+            </p>
+          </div>
+
+          <div
+            onClick={() => scrollTo(0, 0)}
+            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
+            {relatedDoctors(docInfo)
+              .slice(0, 4)
+              .map((item, index) => (
+                <DoctorBookingCard key={index} doctor={item} index={index} />
+              ))}
+          </div>
         </div>
       </>
     )
