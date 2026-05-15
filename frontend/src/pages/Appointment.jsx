@@ -62,7 +62,7 @@ const Appointment = () => {
 
             {/* Available Badge */}
             <div
-              className={`absolute top-4 left-4 flex items-center gap-2 rounded-full px-4 py-1 text-sm font-medium text-white shadow-lg ${
+              className={`absolute -top-3 left-2 flex items-center gap-2 rounded-full px-4 py-1 text-sm font-medium text-white shadow-lg ${
                 docInfo.isAvailable ? 'bg-green-500' : 'bg-red-500'
               }`}
             >
