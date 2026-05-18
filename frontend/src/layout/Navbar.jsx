@@ -10,10 +10,13 @@ const Navbar = () => {
   const [token, setToken] = useState(true);
 
   return (
-    <div className="flex items-center justify-between border-b border-gray-300 py-3 text-sm">
+    <div className="fixed top-0 right-0 left-0 flex items-center justify-between border-b z-100 border-gray-300 px-8 py-3 text-sm sm:px-14 md:px-20 bg-white/90  lg:px-24">
       {/* Logo */}
       <img
-        onClick={() => navigate('/')}
+        onClick={() => {
+          navigate('/');
+          scrollTo(0, 0);
+        }}
         className="w-[180px] cursor-pointer md:h-[55px] md:w-[250px]"
         src={assets.logo}
         alt="medicare logo"
@@ -68,7 +71,7 @@ const Navbar = () => {
                   <p
                     onClick={() => {
                       setToken(false);
-                      navigate('/')
+                      navigate('/');
                     }}
                     className="cursor-pointer hover:text-red-500"
                   >

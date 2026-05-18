@@ -13,8 +13,8 @@ import Appointment from './pages/Appointment';
 const App = () => {
   return (
     <>
-      <div className="mx-4 sm:mx-[10%]">
-        <Navbar />
+      <Navbar />
+      <div className="mx-4 mt-[105px] sm:mx-[10%]">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/doctors" element={<Doctors />} />
