@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { assets } from '../assets/assets';
+import Input from '../components/Input';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -64,24 +65,21 @@ const Contact = () => {
 
           {/* Right Side */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            <input
-              type="text"
+            <Input
               name="name"
               placeholder="Your Name"
               value={formData.name}
               onChange={handleChange}
-              className="focus:border-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3 outline-none"
-              required
+              required={true}
             />
 
-            <input
+            <Input
               type="email"
               name="email"
               placeholder="Your Email"
               value={formData.email}
               onChange={handleChange}
-              className="focus:border-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3 outline-none"
-              required
+              required={true}
             />
 
             <textarea

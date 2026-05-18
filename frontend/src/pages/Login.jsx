@@ -30,7 +30,7 @@ const Login = () => {
 
   return (
     <form onSubmit={onSubmitHandler} className="flex min-h-[80vh] items-center">
-      <div className="m-auto flex min-w-[340px] flex-col items-start gap-4 rounded-xl border border-gray-100 p-8 text-sm text-zinc-600 shadow-lg sm:min-w-96">
+      <div className="m-auto flex min-w-[340px] flex-col items-start gap-4 rounded-xl border border-gray-100 p-8 text-sm text-zinc-600 shadow-lg sm:min-w-[28rem]">
         <img src={assets.logo} alt="" className='h-10 w-auto flex items-center justify-center' />
         <p className="text-2xl font-semibold">
           {state === 'Sign Up' ? 'Create Account' : 'Login'}
