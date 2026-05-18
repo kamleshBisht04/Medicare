@@ -3,7 +3,6 @@ import { assets } from '../assets/assets';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { NavLinks } from '../data/NavLinks';
 
-
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -15,7 +14,7 @@ const Navbar = () => {
       {/* Logo */}
       <img
         onClick={() => navigate('/')}
-        className="w-[180px] cursor-pointer md:w-[250px] md:h-[55px]"
+        className="w-[180px] cursor-pointer md:h-[55px] md:w-[250px]"
         src={assets.logo}
         alt="medicare logo"
       />
@@ -67,7 +66,10 @@ const Navbar = () => {
                   </p>
 
                   <p
-                    onClick={() => setToken(false)}
+                    onClick={() => {
+                      setToken(false);
+                      navigate('/')
+                    }}
                     className="cursor-pointer hover:text-red-500"
                   >
                     Logout

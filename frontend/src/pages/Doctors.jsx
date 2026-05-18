@@ -1,13 +1,14 @@
 import { useNavigate, useParams } from 'react-router-dom';
-
 import { specialities } from '../data/specialities';
 import { useAppContext } from '../context/AppContext';
 import DoctorBookingCard from '../components/DoctorBookingCard';
+import { useState } from 'react';
 
 const Doctors = () => {
   const navigate = useNavigate();
   const { speciality } = useParams();
   const { doctors } = useAppContext();
+  const [showFilter, setShowFilter] = useState(false);
 
   const filterDoctors = speciality
     ? doctors.filter((doc) => doc?.speciality === speciality)
@@ -21,14 +22,30 @@ const Doctors = () => {
       </p>
 
       <div className="mt-5 flex flex-col items-start gap-12 sm:flex-row">
+        <button
+          className={`rounded border px-3 py-1 text-sm transition-all sm:hidden ${
+            showFilter ? 'bg-primary text-white' : ''
+          }`}
+          onClick={() => {
+            setShowFilter((prev) => !prev);
+          }}
+        >
+          Filters
+        </button>
         {/* left side */}
-        <div className="flex flex-col gap-4 text-sm text-gray-600">
+        <div
+          className={`flex-col gap-4 text-sm text-gray-600 ${
+            showFilter ? 'flex' : 'hidden sm:flex'
+          }`}
+        >
           {specialities.map((item, index) => (
             <p
               key={index}
-              onClick={() =>
-                navigate(speciality === item ? '/doctors' : `/doctors/${item}`)
-              }
+              onClick={() => {
+                navigate(speciality === item ? '/doctors' : `/doctors/${item}`);
+
+                setShowFilter(false);
+              }}
               className={`speciality-btn ${
                 speciality === item ? 'speciality-btn-active' : ''
               }`}
