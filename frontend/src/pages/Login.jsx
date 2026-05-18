@@ -1,69 +1,90 @@
 import { useState } from 'react';
+import Input from '../components/Input';
+import { assets } from '../assets/assets';
+
+const initialData = {
+  name: '',
+  email: '',
+  password: '',
+};
 
 const Login = () => {
   const [state, setState] = useState('Sign Up');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+  const [formData, setFormData] = useState(initialData);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    console.log(formData);
   };
 
   return (
     <form onSubmit={onSubmitHandler} className="flex min-h-[80vh] items-center">
-      <div className="m-auto flex min-w-[340px] flex-col items-start gap-3 rounded-xl border border-gray-100 p-8 text-sm text-zinc-600 shadow-lg sm:min-w-96">
+      <div className="m-auto flex min-w-[340px] flex-col items-start gap-4 rounded-xl border border-gray-100 p-8 text-sm text-zinc-600 shadow-lg sm:min-w-96">
+        <img src={assets.logo} alt="" className='h-10 w-auto flex items-center justify-center' />
         <p className="text-2xl font-semibold">
           {state === 'Sign Up' ? 'Create Account' : 'Login'}
         </p>
+
         <p>
           Please {state === 'Sign Up' ? 'sign up' : 'log in'} to book
           appointment
         </p>
+
         {state === 'Sign Up' && (
-          <div className="w-full">
-            <p>Full Name</p>
-            <input
-              className="mt-1 w-full rounded border border-zinc-300 p-2"
-              type="text"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              required
-            />
-          </div>
+          <Input
+            label="Full Name"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required={true}
+          />
         )}
 
-        <div className="w-full">
-          <p>Email</p>
-          <input
-            className="mt-1 w-full rounded border border-zinc-300 p-2"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            required
-          />
-        </div>
-        <div className="w-full">
-          <p>Password</p>
-          <input
-            className="mt-1 w-full rounded border border-zinc-300 p-2"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            required
-          />
-        </div>
+        <Input
+          label="Email"
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required={true}
+        />
+
+        <Input
+          label="Password"
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required={true}
+        />
+
         <button
           type="submit"
           className="bg-primary w-full rounded-md py-2 text-base text-white"
         >
           {state === 'Sign Up' ? 'Create Account' : 'Login'}
         </button>
+
         {state === 'Sign Up' ? (
           <p>
             Already have an account?{' '}
             <span
-              onClick={() => setState('Login')}
+              onClick={() => {
+                setState('Login');
+                setFormData(initialData);
+              }}
               className="text-primary cursor-pointer underline"
             >
               Login here
@@ -73,10 +94,13 @@ const Login = () => {
           <p>
             Create a new account?{' '}
             <span
-              onClick={() => setState('Sign Up')}
+              onClick={() => {
+                setState('Sign Up');
+                setFormData(initialData);
+              }}
               className="text-primary cursor-pointer underline"
             >
-              click here
+              Click here
             </span>
           </p>
         )}

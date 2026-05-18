@@ -8,8 +8,7 @@ const Input = ({
 }) => {
   return (
     <div className="w-full">
-      {label && <p className="mb-1">{label}</p>}
-
+      {label && <p className="mb-[2px]">{label}</p>}
       <input
         type={type}
         value={value}
