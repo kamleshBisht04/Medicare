@@ -1,16 +1,26 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Medicare is a modern and responsive healthcare web application built using the MERN stack. The platform allows patients to easily find doctors by specialty, book appointments online, manage their profiles, and access healthcare services from anywhere. It features a clean UI, reusable React components, authentication system, responsive design, and seamless user experience across devices. The project focuses on simplifying the doctor appointment process with an intuitive and fast-performing interface.",
-  "license": "ISC",
-  "author": "kamlesh singh bisht",
-  "type": "module",
+  "description": "Medicare is a healthcare platform for appointment booking, patient records, doctor management, and healthcare administration built with Node.js, Express, and MongoDB.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "server": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
+  "keywords": [
+    "medicare",
+    "healthcare",
+    "hospital",
+    "appointments",
+    "nodejs",
+    "express",
+    "mongodb",
+    "api"
+  ],
+  "author": "kamlesh singh bisht",
+  "license": "ISC",
+  "type": "module",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.10.0",
