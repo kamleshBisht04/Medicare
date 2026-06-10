@@ -27,6 +27,10 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    experience: {
+      type: String,
+      required: true,
+    },
     about: {
       type: String,
       required: true,
