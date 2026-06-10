@@ -1,7 +1,7 @@
 import validator from "validator";
 import bcrypt from "bcrypt";
 import { v2 as cloudinary } from "cloudinary";
-import doctorModel from "../models/doctorModel";
+import doctorModel from "../models/doctorModel.js";
 
 // Add Doctor API
 const addDoctor = async (req, res) => {
@@ -9,6 +9,9 @@ const addDoctor = async (req, res) => {
     const { name, email, password, speciality, degree, experience, about, fees, address } =
       req.body;
     const imageFile = req.file;
+
+    // console.log("BODY =>", req.body);
+    // console.log("FILE =>", req.file);
 
     // Check for missing details
     if (
@@ -72,7 +75,7 @@ const addDoctor = async (req, res) => {
       date: Date.now(),
       slots_booked: {},
     };
-     
+
     //Save doctor
     const newDoctor = new doctorModel(doctorData);
     await newDoctor.save();
@@ -81,7 +84,6 @@ const addDoctor = async (req, res) => {
       success: true,
       message: "Doctor Added Successfully",
     });
-    
   } catch (error) {
     console.log(error);
     res.json({
