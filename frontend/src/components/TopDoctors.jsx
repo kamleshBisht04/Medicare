@@ -20,18 +20,18 @@ const TopDoctors = () => {
       </div>
 
       {/* doctors grid */}
-      <div className="xs:grid-cols-2 mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="xs:grid-cols-2 mt-10 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {doctors.slice(0, 10).map((item, index) => (
           <div
             key={index}
-            className="flex min-h-[380px] flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+            className="flex min-h-[370px] flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
           >
             {/* image */}
             <div className="bg-blue-50">
               <img
                 src={item.image}
                 alt={item.speciality}
-                className="h-48 w-full  object-cover sm:h-52 md:h-56"
+                className="h-48 w-full object-cover sm:h-52 md:h-56"
               />
             </div>
 
@@ -73,10 +73,10 @@ const TopDoctors = () => {
                   navigate(`/doctors/appointment/${item._id}`)
                 }
                 disabled={!item.isAvailable}
-                className={`mt-auto flex min-h-[44px] w-full items-center justify-center rounded-xl px-2 py-2 text-center text-[11px] font-medium text-white transition-all duration-300 sm:px-4 sm:text-sm ${
+                className={`mt-auto flex min-h-[32px] w-full items-center justify-center rounded-xl px-2 py-2 text-center text-xs whitespace-nowrap font-medium text-white transition-all duration-300 sm:px-4 sm:text-sm ${
                   item.isAvailable
                     ? 'bg-primary hover:-translate-y-1 hover:shadow-lg'
-                    : 'cursor-not-allowed bg-gray-400'
+                    : 'cursor-not-allowed bg-gray-400 '
                 }`}
               >
                 {item.isAvailable
