@@ -6,10 +6,13 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import MyProfile from "@/pages/MyProfile";
 import MyAppointments from "@/pages/MyAppointments";
+import Navbar from "@/layout/Navbar";
+import Footer from "@/layout/Footer";
 
 const App = () => {
   return (
     <>
+      <Navbar />
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -21,6 +24,7 @@ const App = () => {
           <Route path="/my-appointments" element={<MyAppointments />} />
         </Routes>
       </div>
+      <Footer />
     </>
   );
 };
