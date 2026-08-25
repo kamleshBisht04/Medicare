@@ -8,7 +8,7 @@ import MyProfile from "@/pages/MyProfile";
 import MyAppointments from "@/pages/MyAppointments";
 import Navbar from "@/layout/Navbar";
 import Appointment from "@/pages/Appointment";
-import Footer from "./layout/Footer";
+import Footer from "@/layout/Footer";
 
 const App = () => {
   return (

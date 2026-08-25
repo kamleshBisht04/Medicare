@@ -1,4 +1,4 @@
-import { doctors } from '../assets/assets';
+import { doctors } from '@/assets/assets';
 
 export const getAvailableSlots = (docInfo) => {
   if (!docInfo) return;

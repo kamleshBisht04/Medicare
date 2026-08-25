@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { assets, customer } from '../assets/assets';
+ import { useEffect, useState } from 'react';
+import { assets, customer } from '@/assets/assets';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
