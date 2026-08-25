@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { assets } from "../assets/assets";
+import { assets } from "@/assets/assets";
 import { NavLink, useNavigate } from "react-router-dom";
-import { NavLinks } from "../data/NavLinks";
+import { NavLinks } from "@/data/NavLinks";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const Navbar = () => {
   const [token, setToken] = useState(true);
 
   return (
-    <div className="fixed top-0 right-0 left-0 z-100 flex items-center justify-between border-b border-gray-300 bg-white/90 px-8 py-3 text-sm sm:px-14 md:px-20 lg:px-24">
+    <div className="fixed top-0 right-0 left-0 z-100 flex items-center justify-between border-b border-gray-200 bg-white/90 px-8 py-3 text-sm sm:px-14 md:px-20 lg:px-24">
       {/* Logo */}
       <img
         onClick={() => {
@@ -51,8 +51,8 @@ const Navbar = () => {
             </div>
 
             {/* Dropdown */}
-            <div className="absolute top-0 right-0 z-20 hidden pt-15 group-hover:block">
-              <div className="min-w-48 rounded-xl bg-white p-4 shadow-md">
+            <div className="absolute top-0 -right-10 z-20 hidden pt-15 group-hover:block ">
+              <div className="min-w-48   rounded-xl bg-white p-4 shadow-md">
                 <div className="flex flex-col gap-3 text-base text-gray-600">
                   <p
                     onClick={() => navigate("/my-profile")}
