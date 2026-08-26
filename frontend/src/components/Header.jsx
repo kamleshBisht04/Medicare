@@ -1,6 +1,6 @@
- import { useEffect, useState } from 'react';
-import { assets, customer } from '@/assets/assets';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { assets, customer } from "@/assets/assets";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const Header = () => {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <button
                 onClick={() => {
-                  navigate('/doctors');
+                  navigate("/doctors");
                   scrollTo(0, 0);
                 }}
                 className="text-primary-dark rounded-full bg-white px-7 py-3 font-semibold transition-all duration-300 hover:scale-105"
@@ -92,8 +92,8 @@ const Header = () => {
                   alt="Doctors"
                   className={`absolute inset-0 h-full w-full rounded-3xl object-cover shadow-2xl transition-all duration-1000 ${
                     currentImage === index
-                      ? 'translate-y-0 scale-100 opacity-100'
-                      : 'translate-y-10 scale-95 opacity-0'
+                      ? "translate-y-0 scale-100 opacity-100"
+                      : "translate-y-10 scale-95 opacity-0"
                   }`}
                 />
               ))}
