@@ -38,7 +38,7 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="min-h-screen px-4 py-10">
+    <div className="min-h-screen px-4 py-4">
       <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
         {/* Top Section */}
         <div className="gradient-banner flex flex-col gap-6 border-b-1 border-gray-200 px-10 py-6 pb-8 md:flex-row md:items-center md:justify-between">
