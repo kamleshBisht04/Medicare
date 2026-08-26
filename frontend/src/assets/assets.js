@@ -3,6 +3,8 @@ import appointment_img from './appointment_img.png';
 import header_img1 from './header_img1.jpg';
 import header_img2 from './header_img2.jpg';
 import header_img from './header_img.avif';
+import header_img3 from "./header_img3.jpg";
+
 // import group_profiles from './group_profiles.png';
 import profile_pic from './profile_pic.png';
 import contact_image from './contact_image.png';
@@ -51,7 +53,6 @@ import Cardiologist from './Cardiologist.jpg';
 
 export const assets = {
   appointment_img,
-  header_img,
   logo,
   Orthopedic,
   Cardiologist,
@@ -73,9 +74,10 @@ export const assets = {
   cust_3,
   cust_4,
   cust_5,
-
+  header_img,
   header_img1,
   header_img2,
+  header_img3,
 };
 
 export const customer = [cust_1, cust_2, cust_3, cust_4, cust_5];

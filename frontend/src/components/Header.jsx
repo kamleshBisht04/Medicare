@@ -8,6 +8,7 @@ const Header = () => {
     assets.header_img,
     assets.header_img1,
     assets.header_img2,
+    assets.header_img3,
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
