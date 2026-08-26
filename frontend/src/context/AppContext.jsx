@@ -7,7 +7,10 @@ export const AppContext = createContext();
 // provider
 
 export const AppContextProvider = ({ children }) => {
-  const value = {doctors};
+  const currencySymbol = import.meta.env.VITE_CURRENCY_SYMBOL;
+  console.log(currencySymbol);
+
+  const value = { doctors, currencySymbol };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
