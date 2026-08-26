@@ -55,7 +55,7 @@ const Input = ({
           placeholder={placeholder}
           required={required}
           disabled={disabled}
-          className="focus:border-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none"
+          className="focus:border-primary w-full rounded-md border border-gray-200 bg-white px-4 py-2 text-sm outline-none"
         />
       )}
     </div>
