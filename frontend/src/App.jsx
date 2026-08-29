@@ -9,10 +9,12 @@ import MyAppointments from "@/pages/MyAppointments";
 import Navbar from "@/layout/Navbar";
 import Appointment from "@/pages/Appointment";
 import Footer from "@/layout/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const App = () => {
   return (
     <>
+      <ScrollToTop/>
       <Navbar />
       <div className="mx-4 sm:mx-[7.5%] mt-[105px]">
         <Routes>

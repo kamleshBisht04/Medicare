@@ -13,10 +13,7 @@ const Navbar = () => {
     <div className="fixed top-0 right-0 left-0 z-100 flex items-center justify-between border-b border-gray-200 bg-white/90 px-8 py-3 text-sm sm:px-14 md:px-20 lg:px-24">
       {/* Logo */}
       <img
-        onClick={() => {
-          navigate("/");
-          scrollTo(0, 0);
-        }}
+        onClick={() => navigate("/")}
         className="w-[180px] cursor-pointer md:h-[50px] md:w-[220px]"
         src={assets.logo}
         alt="medicare logo"
@@ -51,8 +48,8 @@ const Navbar = () => {
             </div>
 
             {/* Dropdown */}
-            <div className="absolute top-0 -right-10 z-20 hidden pt-15 group-hover:block ">
-              <div className="min-w-48   rounded-xl bg-white p-4 shadow-md">
+            <div className="absolute top-0 -right-10 z-20 hidden pt-15 group-hover:block">
+              <div className="min-w-48 rounded-xl bg-white p-4 shadow-md">
                 <div className="flex flex-col gap-3 text-base text-gray-600">
                   <p
                     onClick={() => navigate("/my-profile")}
