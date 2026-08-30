@@ -4,6 +4,8 @@ import "dotenv/config";
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
 
+
+
 //app config
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -16,6 +18,9 @@ app.use(express.json());
 app.use(cors());
 
 //api endpoints
+
+
+
 
 app.get("/", (req, res) => {
   res.send("API IS WORKING");
