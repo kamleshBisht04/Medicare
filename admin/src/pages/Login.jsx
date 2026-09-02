@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Input from "@/components/Input";
-import { assets } from "../assets/assets";
+import { assets } from "@/assets/assets";
 
 const initialData = {
   email: "",
@@ -21,7 +21,7 @@ const Login = () => {
 
   return (
     <form className="flex min-h-[80vh] items-center justify-center px-4">
-      <div className="w-full max-w-[400px] rounded-xl border border-gray-200 bg-white p-8 text-sm shadow-sm">
+      <div className="w-full max-w-[390px] rounded-xl border border-gray-200 bg-white p-8 text-sm shadow-sm">
         <p className="mb-2 text-center text-2xl font-semibold text-gray-800">
           <span className="text-primary/80 capitalize">{state}</span> Login
         </p>
@@ -55,7 +55,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="bg-primary mt-2 mb-5 w-full rounded-md py-2 text-base font-medium text-white transition hover:opacity-90"
+            className="bg-primary/90 mt-2 mb-5 w-full rounded-md py-2 text-base font-medium text-white transition hover:opacity-90"
           >
             Login
           </button>
