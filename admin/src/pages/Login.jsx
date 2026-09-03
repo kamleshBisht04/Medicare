@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Input from "@/components/Input";
+import { toast } from "react-toastify";
 import { assets } from "@/assets/assets";
 import axios from "axios";
+import Input from "@/components/Input";
 import useAdmin from "@/hooks/useAdmin";
-import { toast } from "react-toastify";
 
 const initialData = {
   email: "",
