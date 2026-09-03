@@ -1,9 +1,17 @@
 import Login from "@/pages/Login";
+import { ToastContainer } from "react-toastify";
+import useAdmin from "@/hooks/useAdmin";
 
 const App = () => {
-  return (
-    <div >
+  const { aToken } = useAdmin();
+  return aToken ? (
+    <div className="bg-[#F8F9FD]">
+      <ToastContainer />
+    </div>
+  ) : (
+    <div>
       <Login />
+      <ToastContainer />
     </div>
   );
 };
