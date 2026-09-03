@@ -1,12 +1,14 @@
 import Login from "@/pages/Login";
 import { ToastContainer } from "react-toastify";
 import useAdmin from "@/hooks/useAdmin";
+import Navbar from "@/components/Navbar";
 
 const App = () => {
   const { aToken } = useAdmin();
   return aToken ? (
-    <div className="bg-[#F8F9FD]">
+    <div >
       <ToastContainer />
+      <Navbar />
     </div>
   ) : (
     <div>
