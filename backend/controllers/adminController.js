@@ -20,6 +20,7 @@ const addDoctor = async (req, res) => {
       street,
       city,
       state,
+      district,
       pincode,
     } = req.body;
 
@@ -38,6 +39,7 @@ const addDoctor = async (req, res) => {
       !street ||
       !city ||
       !state ||
+      !district ||
       !pincode
     ) {
       return res.status(400).json({
@@ -79,7 +81,7 @@ const addDoctor = async (req, res) => {
 
     // Create doctor data
     const doctorData = {
-      name,
+      name: name.startsWith("Dr.") ? name : `Dr. ${name}`,
       email,
       password: hashedPassword,
       image: imageUrl,
@@ -91,6 +93,7 @@ const addDoctor = async (req, res) => {
       address: {
         street,
         city,
+        district,
         state,
         pincode,
       },
@@ -140,4 +143,25 @@ const loginAdmin = async (req, res) => {
   }
 };
 
-export { addDoctor, loginAdmin };
+// TO GET ALL DOCTORS
+
+// API to get all doctors list for admin panel
+const getAllDoctors = async (req, res) => {
+  try {
+    const doctors = await doctorModel.find({}).select("-password");
+
+    res.status(200).json({
+      success: true,
+      doctors,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { addDoctor, loginAdmin, getAllDoctors };
