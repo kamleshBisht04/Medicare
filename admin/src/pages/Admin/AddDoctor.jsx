@@ -308,6 +308,7 @@ const AddDoctor = () => {
             type="submit"
             className="bg-primary mt-6 rounded-full px-7 py-2.5 text-sm font-medium text-white transition hover:opacity-90 active:scale-95"
             disabled={loading}
+            onClick={() => scrollTo(0, 0)}
           >
             {loading ? "Adding Doctor..." : "Add Doctor"}
           </button>
