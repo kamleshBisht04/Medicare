@@ -8,7 +8,6 @@ const AdminContextProvider = ({ children }) => {
     localStorage.getItem("aToken") ? localStorage.getItem("aToken") : "",
   );
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  console.log(backendUrl);
 
   const value = {
     aToken,
