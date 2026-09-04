@@ -13,10 +13,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex items-center justify-between border-b border-gray-200 bg-white px-4 py-3 sm:pr-28 sm:pl-10">
+    <div className="fixed top-0 right-0 left-0 z-50 flex items-center justify-between border-b border-gray-200  bg-white px-4 py-3 sm:pr-28 sm:pl-10 shadow-xs">
       <div className="text-xm flex items-center gap-2">
         <img
           src={assets.admin_logo}
+          onClick={() => navigate("/")}
           className="w-32 cursor-pointer sm:w-52"
           alt="logo dashboard image "
         />

@@ -31,7 +31,7 @@ const Input = ({
           required={required}
           disabled={disabled}
           rows={rows}
-          className="focus:border-primary w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none"
+          className="w-full resize-none rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-[#A9A9A9]"
         />
       ) : select ? (
         <select
@@ -40,7 +40,7 @@ const Input = ({
           onChange={onChange}
           required={required}
           disabled={disabled}
-          className="focus:border-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none"
+          className="w-full rounded-xl border-2 border-gray-200 bg-white px-2 py-2 text-sm outline-none focus:border-[#A9A9A9]"
         >
           <option value="">{placeholder || "Select Option"}</option>
 

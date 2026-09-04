@@ -1,5 +1,5 @@
 const DoctorsList = () => {
-  return <div></div>;
+  return <div>DoctorsList</div>;
 };
 
 export default DoctorsList;

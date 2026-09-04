@@ -1,5 +1,11 @@
-const AllApointment = () => {
-  return <div></div>;
-};
+import React from 'react'
 
-export default AllApointment;
+const AllApointment = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default AllApointment

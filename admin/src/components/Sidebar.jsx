@@ -8,7 +8,7 @@ const Sidebar = () => {
   const menuItems = aToken ? adminMenu : dToken ? doctorMenu : [];
 
   return (
-    <div className="min-h-screen border-r border-gray-200 bg-white shadow-lg">
+    <div className="mt-16  fixed left-0  top-0 z-40 min-h-screen border-r border-gray-200 bg-white shadow-lg">
       <ul className="mt-5 text-[#515151]">
         {menuItems.map((item) => (
           <SidebarItem
