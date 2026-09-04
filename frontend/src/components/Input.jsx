@@ -1,6 +1,7 @@
 const Input = ({
   label,
-  type = 'text',
+  type = "text",
+  name,
   value,
   onChange,
   placeholder,
@@ -23,6 +24,7 @@ const Input = ({
 
       {textarea ? (
         <textarea
+          name={name}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -33,13 +35,14 @@ const Input = ({
         />
       ) : select ? (
         <select
+          name={name}
           value={value}
           onChange={onChange}
           required={required}
           disabled={disabled}
           className="focus:border-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none"
         >
-          <option value="">{placeholder || 'Select Option'}</option>
+          <option value="">{placeholder || "Select Option"}</option>
 
           {options.map((option, index) => (
             <option key={index} value={option}>
@@ -50,6 +53,7 @@ const Input = ({
       ) : (
         <input
           type={type}
+          name={name}
           value={value}
           onChange={onChange}
           placeholder={placeholder}

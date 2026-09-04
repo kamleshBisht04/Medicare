@@ -16,7 +16,7 @@ const App = () => {
     <>
       <ScrollToTop/>
       <Navbar />
-      <div className="mx-4 sm:mx-[7.5%] mt-[105px]">
+      <div className="mx-4 sm:mx-[7.5%] mt-[105px] ">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/doctors" element={<Doctors />} />

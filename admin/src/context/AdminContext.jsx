@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState } from "react";
+import axios from "axios";
 
 export const AdminContext = createContext();
 
@@ -7,12 +8,33 @@ const AdminContextProvider = ({ children }) => {
   const [aToken, setAToken] = useState(
     localStorage.getItem("aToken") ? localStorage.getItem("aToken") : "",
   );
+  const [doctors, setDoctors] = useState([]);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  
+
+  const getAllDoctors = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/admin/doctor-list", {
+        headers: {
+          aToken,
+        },
+      });
+      console.log(data)
+
+      if (data.success) {
+        setDoctors(data.doctors);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const value = {
     aToken,
     setAToken,
     backendUrl,
+    doctors,
+    getAllDoctors,
   };
   return (
     <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
