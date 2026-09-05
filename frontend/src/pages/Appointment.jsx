@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from "react-router-dom";
-import { useAppContext } from "../context/AppContext";
 import { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import {
@@ -10,6 +9,7 @@ import {
   relatedDoctors,
 } from "../data/appointmentSlots";
 import DoctorBookingCard from "../components/DoctorBookingCard";
+import { useAppContext } from "../hooks/useAppContext";
 
 const Appointment = () => {
   const { docId } = useParams();
@@ -63,11 +63,11 @@ const Appointment = () => {
             {/* Available Badge */}
             <div
               className={`absolute -top-3 left-2 flex items-center gap-2 rounded-full px-4 py-1 text-sm font-medium text-white shadow-lg ${
-                docInfo.isAvailable ? "bg-green-500" : "bg-red-500"
+                docInfo.available ? "bg-green-500" : "bg-red-500"
               }`}
             >
               <span className="h-2 w-2 rounded-full bg-white"></span>
-              {docInfo.isAvailable ? "Available" : "Not Available"}
+              {docInfo.available ? "Available" : "Not Available"}
             </div>
           </div>
 
@@ -134,7 +134,7 @@ const Appointment = () => {
         </div>
 
         {/* Booking Slots */}
-        {docInfo.isAvailable ? (
+        {docInfo.available ? (
           <div className="mt-6 px-4 sm:ml-[21rem] sm:pl-6">
             <p className="text-lg font-semibold text-gray-800">Booking Slots</p>
 
@@ -183,7 +183,7 @@ const Appointment = () => {
 
             {/* Button */}
 
-            {docInfo.isAvailable ? (
+            {docInfo.available ? (
               <button className="bg-primary my-8 rounded-full px-14 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-[1.02]">
                 Book an appointment
               </button>

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const DoctorBookingCard = ({ doctor, index }) => {
   const navigate = useNavigate();
@@ -25,32 +25,32 @@ const DoctorBookingCard = ({ doctor, index }) => {
           <div className="flex items-center gap-2">
             <span
               className={`h-2.5 w-2.5 rounded-full ${
-                doctor.isAvailable ? "animate-pulse bg-green-500" : "bg-red-500"
+                doctor.available ? "animate-pulse bg-green-500" : "bg-red-500"
               }`}
             />
 
             <p
               className={`text-xs font-medium whitespace-nowrap sm:text-sm ${
-                doctor.isAvailable ? "text-green-600" : "text-red-500"
+                doctor.available ? "text-green-600" : "text-red-500"
               }`}
             >
-              {doctor.isAvailable ? "Available" : "Not Available"}
+              {doctor.available ? "Available" : "Not Available"}
             </p>
           </div>
 
           {/* button */}
           <button
             onClick={() =>
-              doctor.isAvailable && navigate(`/appointment/${doctor._id}`)
+              doctor.available && navigate(`/appointment/${doctor._id}`)
             }
-            disabled={!doctor.isAvailable}
+            disabled={!doctor.available}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium text-white transition-all duration-300 ${
-              doctor.isAvailable
+              doctor.available
                 ? "bg-primary hover:-translate-y-0.5 hover:shadow-md"
                 : "cursor-not-allowed bg-gray-400"
             }`}
           >
-            {doctor.isAvailable ? "Book Now" : "Unavailable"}
+            {doctor.available ? "Book Now" : "Unavailable"}
           </button>
         </div>
 

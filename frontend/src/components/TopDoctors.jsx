@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '@/context/AppContext';
-
+import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../hooks/useAppContext";
 const TopDoctors = () => {
   const navigate = useNavigate();
+
   const { doctors } = useAppContext();
+  console.log(doctors);
 
   return (
     <section className="lg:px-auto mx-auto my-12 w-full max-w-[100rem] px-4 sm:px-6">
@@ -40,18 +41,16 @@ const TopDoctors = () => {
               <div className="flex items-center gap-2">
                 <span
                   className={`h-2.5 w-2.5 rounded-full ${
-                    item.isAvailable
-                      ? 'animate-pulse bg-green-500'
-                      : 'bg-red-500'
+                    item.available ? "animate-pulse bg-green-500" : "bg-red-500"
                   }`}
                 />
 
                 <p
                   className={`text-xs font-medium sm:text-sm ${
-                    item.isAvailable ? 'text-green-600' : 'text-red-500'
+                    item.available ? "text-green-600" : "text-red-500"
                   }`}
                 >
-                  {item.isAvailable ? 'Available' : 'Not Available'}
+                  {item.available ? "Available" : "Not Available"}
                 </p>
               </div>
 
@@ -68,19 +67,16 @@ const TopDoctors = () => {
               {/* button */}
               <button
                 onClick={() =>
-                  item.isAvailable &&
-                  navigate(`/doctors/appointment/${item._id}`)
+                  item.available && navigate(`/doctors/appointment/${item._id}`)
                 }
-                disabled={!item.isAvailable}
-                className={`mt-auto flex min-h-[32px] w-full items-center justify-center rounded-xl px-2 py-2 text-center text-xs whitespace-nowrap font-medium text-white transition-all duration-300 sm:px-4 sm:text-sm ${
-                  item.isAvailable
-                    ? 'bg-primary hover:-translate-y-1 hover:shadow-lg'
-                    : 'cursor-not-allowed bg-gray-400 '
+                disabled={!item.available}
+                className={`mt-auto flex min-h-[32px] w-full items-center justify-center rounded-xl px-2 py-2 text-center text-xs font-medium whitespace-nowrap text-white transition-all duration-300 sm:px-4 sm:text-sm ${
+                  item.available
+                    ? "bg-primary hover:-translate-y-1 hover:shadow-lg"
+                    : "cursor-not-allowed bg-gray-400 "
                 }`}
               >
-                {item.isAvailable
-                  ? 'Book Appointment'
-                  : 'Currently Unavailable'}
+                {item.available ? "Book Appointment" : "Currently Unavailable"}
               </button>
             </div>
           </div>
@@ -90,7 +86,7 @@ const TopDoctors = () => {
       <div className="mt-10 flex justify-center">
         <p
           onClick={() => {
-            navigate('/doctors');
+            navigate("/doctors");
             scrollTo(0, 0);
           }}
           className="hover:bg-primary/88 cursor-pointer rounded-full border border-gray-300 bg-blue-50 px-8 py-3 text-sm font-medium text-gray-700 transition-all duration-300 hover:text-white"

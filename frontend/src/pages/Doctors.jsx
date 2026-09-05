@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { specialities } from "@/data/specialities";
-import { useAppContext } from "@/context/AppContext";
 import DoctorBookingCard from "@/components/DoctorBookingCard";
 import { useState } from "react";
+import { useAppContext } from "../hooks/useAppContext";
 
 const Doctors = () => {
   const navigate = useNavigate();
