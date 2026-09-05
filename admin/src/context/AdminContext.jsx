@@ -19,6 +19,7 @@ const AdminContextProvider = ({ children }) => {
           aToken,
         },
       });
+      console.log(data);
       if (data.success) {
         setDoctors(data.doctors);
       } else {
@@ -30,12 +31,40 @@ const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const handleAvailability = async (id, currentAvailability) => {
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/api/admin/change-availability`,
+        {
+          id,
+          available: !currentAvailability,
+        },
+        {
+          headers: {
+            aToken,
+          },
+        },
+      );
+
+      if (data.success) {
+        getAllDoctors();
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || error.message);
+    }
+  };
+
   const value = {
     aToken,
     setAToken,
     backendUrl,
     doctors,
     getAllDoctors,
+    handleAvailability,
   };
   return (
     <AdminContext.Provider value={value}>{children}</AdminContext.Provider>

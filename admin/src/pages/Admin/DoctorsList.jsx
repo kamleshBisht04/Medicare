@@ -1,38 +1,9 @@
 import { useEffect } from "react";
-import axios from "axios";
 import { assets } from "../../assets/assets";
 import useAdmin from "../../hooks/useAdmin";
-import { toast } from "react-toastify";
 
 const DoctorsList = () => {
-  const { aToken, doctors, getAllDoctors, backendUrl } = useAdmin();
-
-  const handleAvailability = async (id, currentAvailability) => {
-    try {
-      const { data } = await axios.post(
-        `${backendUrl}/api/admin/change-availability`,
-        {
-          id,
-          available: !currentAvailability,
-        },
-        {
-          headers: {
-            aToken,
-          },
-        },
-      );
-
-      if (data.success) {
-        getAllDoctors();
-        toast.success(data.message);
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.message || error.message);
-    }
-  };
+  const { aToken, doctors, getAllDoctors, handleAvailability } = useAdmin();
 
   useEffect(() => {
     if (aToken) {
@@ -123,6 +94,7 @@ const DoctorsList = () => {
                 </p>
                 <input
                   type="checkbox"
+                  className="h-4 w-4 cursor-pointer  accent-green-600"
                   checked={Boolean(doctor.available)}
                   onChange={() =>
                     handleAvailability(doctor._id, Boolean(doctor.available))
