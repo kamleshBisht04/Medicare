@@ -9,22 +9,27 @@ const DoctorsList = () => {
 
   const handleAvailability = async (id, currentAvailability) => {
     try {
-      const newAvailability = !currentAvailability;
       const { data } = await axios.post(
-        backendUrl + "api/admin/change-availability",
+        `${backendUrl}/api/admin/change-availability`,
         {
           id,
-          available: newAvailability,
+          available: !currentAvailability,
         },
         {
-          headers: { aToken },
+          headers: {
+            aToken,
+          },
         },
       );
+
       if (data.success) {
         getAllDoctors();
         toast.success(data.message);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error(error.response?.data?.message || error.message);
     }
   };
@@ -118,12 +123,10 @@ const DoctorsList = () => {
                 </p>
                 <input
                   type="checkbox"
-                  name="available"
-                  value={true}
+                  checked={Boolean(doctor.available)}
                   onChange={() =>
-                    handleAvailability(doctor._id, doctor.available)
+                    handleAvailability(doctor._id, Boolean(doctor.available))
                   }
-                  checked={doctor.available}
                 />
               </div>
             </div>
