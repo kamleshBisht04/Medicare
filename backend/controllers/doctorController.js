@@ -22,4 +22,22 @@ const changeAvailablity = async (req, res) => {
   }
 };
 
-export { changeAvailablity };
+// API FOR DOCTORS LIST TO FRONT END
+
+const doctorList = async (req, res) => {
+  try {
+    const doctors = await doctorModel.find({}).select(["-email", "-password"]);
+
+    res.status(200).json({
+      success: true,
+      doctors,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { changeAvailablity, doctorList };
