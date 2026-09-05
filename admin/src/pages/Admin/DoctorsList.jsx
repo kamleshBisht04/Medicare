@@ -1,13 +1,39 @@
 import { useEffect } from "react";
+import axios from "axios";
 import { assets } from "../../assets/assets";
 import useAdmin from "../../hooks/useAdmin";
+import { toast } from "react-toastify";
 
 const DoctorsList = () => {
-  const { doctors, getAllDoctors } = useAdmin();
+  const { aToken, doctors, getAllDoctors, backendUrl } = useAdmin();
 
-   useEffect(() => {
-     getAllDoctors();
-   }, []);
+  const handleAvailability = async (id, currentAvailability) => {
+    try {
+      const newAvailability = !currentAvailability;
+      const { data } = await axios.post(
+        backendUrl + "api/admin/change-availability",
+        {
+          id,
+          available: newAvailability,
+        },
+        {
+          headers: { aToken },
+        },
+      );
+      if (data.success) {
+        getAllDoctors();
+        toast.success(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (aToken) {
+      getAllDoctors();
+    }
+  }, [aToken]);
 
   return (
     <div className="mt-20 w-full px-16 pb-8 sm:px-6 md:px-10 lg:px-16">
@@ -58,7 +84,7 @@ const DoctorsList = () => {
               </div>
 
               {/* Details */}
-              <div className="mt-1 space-y-1 text-sm text-gray-500">
+              <div className="mt-1 space-y-1 text-[13px] text-gray-500">
                 <p>
                   <span className="font-medium text-gray-700">Degree:</span>{" "}
                   {doctor.degree}
@@ -81,14 +107,24 @@ const DoctorsList = () => {
               </div>
 
               {/* Status */}
-              <div className="mt-1 border-t border-gray-100 pt-3">
+              <div className="mt-1 flex items-center justify-between border-t border-gray-100 pt-3">
                 <p
                   className={`text-xs font-medium ${
                     doctor.available ? "text-green-600" : "text-gray-400"
                   }`}
                 >
-                  {doctor.available ? "● Available" : "● Not Available"}
+                  <span> ●</span>{" "}
+                  {doctor.available ? " Available" : " Not Available"}
                 </p>
+                <input
+                  type="checkbox"
+                  name="available"
+                  value={true}
+                  onChange={() =>
+                    handleAvailability(doctor._id, doctor.available)
+                  }
+                  checked={doctor.available}
+                />
               </div>
             </div>
           </div>

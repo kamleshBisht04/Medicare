@@ -53,6 +53,11 @@ const AddDoctor = () => {
 
     try {
       setLoading(true);
+
+      if(!image){
+        return toast.error("Image not selected !")
+      }
+      
       const newDoctorData = new FormData();
 
       // Add all form fields
@@ -65,10 +70,10 @@ const AddDoctor = () => {
         newDoctorData.append("image", image);
       }
 
-      // Check FormData
-      newDoctorData.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-      });
+      // // Check FormData
+      // newDoctorData.forEach((value, key) => {
+      //   console.log(`${key}: ${value}`);
+      // });
 
       const { data } = await axios.post(
         backendUrl + "/api/admin/add-doctor",

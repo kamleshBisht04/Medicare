@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const AdminContext = createContext();
 
@@ -10,7 +11,6 @@ const AdminContextProvider = ({ children }) => {
   );
   const [doctors, setDoctors] = useState([]);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  
 
   const getAllDoctors = async () => {
     try {
@@ -19,12 +19,13 @@ const AdminContextProvider = ({ children }) => {
           aToken,
         },
       });
-      console.log(data)
-
       if (data.success) {
         setDoctors(data.doctors);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
+      toast.error(error.message);
       console.log(error);
     }
   };
