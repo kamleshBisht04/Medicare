@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Input from "../components/Input";
 import { assets } from "../assets/assets";
+import { useAppContext } from "../hooks/useAppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const initialData = {
   name: "",
@@ -10,8 +13,8 @@ const initialData = {
 
 const Login = () => {
   const [state, setState] = useState("Sign Up");
-
   const [formData, setFormData] = useState(initialData);
+  const { backendUrl, token, setToken } = useAppContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,8 +27,27 @@ const Login = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    try {
+      const isSignUp = state === "sign Up";
 
-    console.log(formData);
+      const requestedData = isSignUp
+        ? formData
+        : { email: formData.email, password: formData.password };
+
+      const { data } = await axios.post(
+        backendUrl + `/api/user/${isSignUp ? "register" : "login"}`,
+        requestedData,
+      );
+
+      if (!data.success) {
+        return toast.error(data.message);
+      }
+
+      localStorage.setItem("token", data.token);
+      
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
   };
 
   return (
