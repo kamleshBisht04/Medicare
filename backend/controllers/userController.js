@@ -49,7 +49,6 @@ const registerUser = async (req, res) => {
     const savedUser = await user.save();
 
     const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
-    console.log(token);
 
     res.status(201).json({
       success: true,
@@ -96,8 +95,6 @@ const loginUser = async (req, res) => {
       });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-
-    console.log(token);
 
     res.json({
       success: true,
