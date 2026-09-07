@@ -2,6 +2,7 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
+
 // API to register user
 
 const registerUser = async (req, res) => {
@@ -48,6 +49,7 @@ const registerUser = async (req, res) => {
     const savedUser = await user.save();
 
     const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
+    console.log(token);
 
     res.status(201).json({
       success: true,
@@ -63,4 +65,53 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { registerUser };
+// API to login user
+
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required",
+      });
+    }
+
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+    console.log(token);
+
+    res.json({
+      success: true,
+      message: "Login successful",
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { registerUser, loginUser };
