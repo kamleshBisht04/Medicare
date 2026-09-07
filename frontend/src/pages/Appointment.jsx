@@ -13,9 +13,8 @@ import { useAppContext } from "../hooks/useAppContext";
 
 const Appointment = () => {
   const { docId } = useParams();
-
   const { doctors, currencySymbol } = useAppContext();
-
+  console.log(relatedDoctors);
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
@@ -216,7 +215,7 @@ const Appointment = () => {
             onClick={() => scrollTo(0, 0)}
             className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
           >
-            {relatedDoctors(docInfo)
+            {relatedDoctors(docInfo, doctors)
               .slice(0, 4)
               .map((item, index) => (
                 <DoctorBookingCard doctor={item} index={index} />

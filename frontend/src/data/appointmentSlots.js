@@ -1,4 +1,5 @@
-import { doctors } from '@/assets/assets';
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useAppContext } from "../hooks/useAppContext";
 
 export const getAvailableSlots = (docInfo) => {
   if (!docInfo) return;
@@ -34,15 +35,15 @@ export const getAvailableSlots = (docInfo) => {
 
     while (currentDate < endTime) {
       let formattedTime = currentDate.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
+        hour: "2-digit",
+        minute: "2-digit",
       });
 
       let day = currentDate.getDate();
       let month = currentDate.getMonth() + 1;
       let year = currentDate.getFullYear();
 
-      const slotDate = day + '_' + month + '_' + year;
+      const slotDate = day + "_" + month + "_" + year;
       const slotTime = formattedTime;
 
       // Check slot booked or not
@@ -72,10 +73,11 @@ export const getAvailableSlots = (docInfo) => {
   return allSlots;
 };
 
-export const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+export const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 // finding speciality wise doctor
-export const relatedDoctors = (docInfo) =>
-  doctors.filter(
+export const relatedDoctors = (docInfo,doctors) => {
+  return doctors.filter(
     (doc) => doc.speciality === docInfo.speciality && doc._id !== docInfo._id,
   );
+};
