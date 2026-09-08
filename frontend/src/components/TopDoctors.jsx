@@ -4,7 +4,6 @@ const TopDoctors = () => {
   const navigate = useNavigate();
 
   const { doctors } = useAppContext();
-  console.log(doctors);
 
   return (
     <section className="lg:px-auto mx-auto my-12 w-full max-w-[100rem] px-4 sm:px-6">

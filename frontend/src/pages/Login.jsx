@@ -1,9 +1,11 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import Input from "../components/Input";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../hooks/useAppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const initialData = {
   name: "",
@@ -15,6 +17,7 @@ const Login = () => {
   const [state, setState] = useState("Sign Up");
   const [formData, setFormData] = useState(initialData);
   const { backendUrl, token, setToken } = useAppContext();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,11 +47,17 @@ const Login = () => {
       }
 
       localStorage.setItem("token", data.token);
-      
+      setToken(data.token);
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
   return (
     <form onSubmit={onSubmitHandler} className="flex min-h-[70vh] items-center">
