@@ -94,7 +94,7 @@ const loginUser = async (req, res) => {
         message: "Invalid email or password",
       });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user._id, role: "user" }, process.env.JWT_SECRET);
 
     res.json({
       success: true,
@@ -111,4 +111,41 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser };
+//API to get user profile
+
+const getProfile = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found!",
+      });
+    }
+    res.json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// API to update user profile
+
+const updateProfile = async (req, res) => {
+ try {
+  
+ } catch (error) {
+  
+ }
+
+};
+
+export { registerUser, loginUser, getProfile, updateProfile };
