@@ -8,9 +8,10 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const currencySymbol = import.meta.env.VITE_CURRENCY_SYMBOL;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
   const [doctors, setDoctors] = useState([]);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : false,
+  );
 
   useEffect(() => {
     const getDoctorsData = async () => {

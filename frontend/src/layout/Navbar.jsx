@@ -11,7 +11,7 @@ const Navbar = () => {
   const { token, setToken } = useAppContext();
 
   const logout = () => {
-    setToken("");
+    setToken(false);
     localStorage.removeItem("token");
   };
 
@@ -170,10 +170,7 @@ const Navbar = () => {
                 </button>
 
                 <button
-                  onClick={() => {
-                    setToken(false);
-                    setShowMenu(false);
-                  }}
+                  onClick={logout}
                   className="rounded-2xl bg-red-50 px-4 py-4 text-left text-[15px] font-medium text-red-500 transition-all duration-200 active:scale-[0.98]"
                 >
                   Logout

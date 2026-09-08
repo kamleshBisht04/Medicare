@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import Input from "../components/Input";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../hooks/useAppContext";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const initialData = {
   name: "",
@@ -31,7 +31,7 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const isSignUp = state === "sign Up";
+      const isSignUp = state === "Sign Up";
 
       const requestedData = isSignUp
         ? formData

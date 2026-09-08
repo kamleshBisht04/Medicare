@@ -14,7 +14,6 @@ import { useAppContext } from "../hooks/useAppContext";
 const Appointment = () => {
   const { docId } = useParams();
   const { doctors, currencySymbol } = useAppContext();
-  console.log(relatedDoctors);
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
@@ -218,7 +217,7 @@ const Appointment = () => {
             {relatedDoctors(docInfo, doctors)
               .slice(0, 4)
               .map((item, index) => (
-                <DoctorBookingCard doctor={item} index={index} />
+                <DoctorBookingCard doctor={item} key={index} />
               ))}
           </div>
         </div>
