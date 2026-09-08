@@ -26,18 +26,22 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       trim: true,
+      default: "0000000000",
     },
     address: {
       type: String,
       trim: true,
+      default: "",
     },
     city: {
       type: String,
       trim: true,
+      default: "",
     },
     pincode: {
       type: String,
       trim: true,
+      default: "000000",
     },
     gender: {
       type: String,
@@ -63,16 +67,19 @@ const userSchema = new mongoose.Schema(
     emergencyContact: {
       type: String,
       trim: true,
+      default: "",
     },
 
     allergies: {
       type: String,
       trim: true,
+      default: "NO",
     },
 
     medicalHistory: {
       type: String,
       trim: true,
+      default: "No previous medical history",
     },
   },
   {

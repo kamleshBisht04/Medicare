@@ -1,6 +1,7 @@
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { v2 as cloudinary } from "cloudinary";
 import userModel from "../models/userModel.js";
 
 // API to register user
@@ -140,12 +141,79 @@ const getProfile = async (req, res) => {
 // API to update user profile
 
 const updateProfile = async (req, res) => {
- try {
-  
- } catch (error) {
-  
- }
+  try {
+    const { name, phone, address, city, pincode, gender, dateOfBirth, bloodGroup, height, weight, emergencyContact, allergies, medicalHistory, } = req.body;
 
+    const image = req.file;
+
+    const user = await userModel.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if ( !name || !phone || !address || !city || !pincode || !gender || !dateOfBirth || !bloodGroup || !height || !weight || !emergencyContact || !allergies || !medicalHistory ) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    if (!image) {
+      return res.status(400).json({
+        success: false,
+        message: "Profile photo required",
+      });
+    }
+
+    // Upload profile image
+    const imageUpload = await cloudinary.uploader.upload(image.path, {
+      resource_type: "image",
+    });
+
+    user.image = imageUpload.secure_url;
+
+    // Update profile fields
+    const updateFields = {
+      name,
+      phone,
+      address,
+      city,
+      pincode,
+      gender,
+      dateOfBirth,
+      bloodGroup,
+      height,
+      weight,
+      emergencyContact,
+      allergies,
+      medicalHistory,
+    };
+
+    Object.keys(updateFields).forEach((key) => {
+      if (updateFields[key] !== undefined) {
+        user[key] = updateFields[key];
+      }
+    });
+
+    await user.save();
+
+    return res.json({
+      success: true,
+      message: "Profile updated successfully",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 export { registerUser, loginUser, getProfile, updateProfile };
