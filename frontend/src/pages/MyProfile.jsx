@@ -2,26 +2,11 @@ import { useState } from "react";
 import { Edit2, Save, Camera } from "lucide-react";
 import { assets } from "../assets/assets";
 import Input from "../components/Input";
+import { useAppContext } from "../hooks/useAppContext";
 
 const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(false);
-
-  const [userData, setUserData] = useState({
-    name: "John Doe",
-    email: "johndoe@gmail.com",
-    phone: "+91 9876543210",
-    address: "New Delhi, India",
-    gender: "Male",
-    dob: "2000-01-01",
-    bloodGroup: "B+",
-    emergency: "+91 9999999999",
-    weight: "72 Kg",
-    height: "5.9 ft",
-    allergies: "Dust Allergy",
-    medicalHistory: "Diabetes",
-    city: "Delhi",
-    pincode: "110025",
-  });
+  const { userData, setUserData } = useAppContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
