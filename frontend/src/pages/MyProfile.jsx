@@ -12,6 +12,7 @@ import Loader from "../components/Loader";
 import { useAppContext } from "../hooks/useAppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { formatDate } from "../data/formatDate.js";
 
 const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -343,7 +344,7 @@ const MyProfile = () => {
                   label="Date of Birth"
                   type="date"
                   name="dateOfBirth"
-                  value={userData.dateOfBirth || ""}
+                  value={formatDate(userData.dateOfBirth) || ""}
                   onChange={handleChange}
                   disabled={!isEdit}
                 />

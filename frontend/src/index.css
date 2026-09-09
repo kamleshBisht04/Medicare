@@ -12,10 +12,16 @@ html {
 }
 
 @theme {
+
+
   --color-primary: #4f46e5;
   --color-primary-dark: #4f46e5;
   --color-prime: #3730a3;
 
+
+  /* Primary      #4F46E5  → Main buttons, icons
+Primary Dark #4338CA  → Hover
+Primary Light #EEF2FF  → Light backgrounds */
   /* --color-primary: #3362a5;
   --color-primary-dark: #003b8e;
   --color-prime: #2e5895; */
