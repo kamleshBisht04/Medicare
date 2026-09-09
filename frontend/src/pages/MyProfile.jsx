@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  Edit2,
-  Save,
-  Camera,
-  User,
-  HeartPulse,
-  ShieldCheck,
-} from "lucide-react";
+import { Edit2, Save, Camera, User, HeartPulse, ShieldCheck, } from "lucide-react";
 import Input from "../components/Input";
 import Loader from "../components/Loader";
 import { useAppContext } from "../hooks/useAppContext";
