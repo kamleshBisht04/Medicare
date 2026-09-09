@@ -4,10 +4,12 @@ import Input from "../components/Input";
 import { useAppContext } from "../hooks/useAppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { userData, setUserData, backendUrl, token } = useAppContext();
 
   const handleChange = (e) => {
@@ -21,6 +23,7 @@ const MyProfile = () => {
 
   const handleSave = async () => {
     try {
+      setLoading(true);
       const profileFields = [
         "name",
         "phone",
@@ -68,6 +71,8 @@ const MyProfile = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -127,11 +132,22 @@ const MyProfile = () => {
             >
               {isEdit ? (
                 <>
-                  <Save className="h-4 w-4" /> Save Profile
+                  {loading ? (
+                    <>
+                      <Loader />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="h-4 w-4" />
+                      Save Profile
+                    </>
+                  )}
                 </>
               ) : (
                 <>
-                  <Edit2 className="h-4 w-4" /> Edit Profile
+                  <Edit2 className="h-4 w-4" />
+                  Edit Profile
                 </>
               )}
             </button>
