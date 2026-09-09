@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useAppContext } from "../hooks/useAppContext";
 
 export const getAvailableSlots = (docInfo) => {
   if (!docInfo) return;

@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
-import {
-  daysOfWeek,
-  getAvailableSlots,
-  relatedDoctors,
-} from "../data/appointmentSlots";
+import { daysOfWeek, getAvailableSlots, relatedDoctors, } from "../data/appointmentSlots";
 import DoctorBookingCard from "../components/DoctorBookingCard";
 import { useAppContext } from "../hooks/useAppContext";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Appointment = () => {
   const { docId } = useParams();
-  const { doctors, currencySymbol } = useAppContext();
+  const { doctors, currencySymbol, backendUrl, token, getDoctorsData } =
+    useAppContext();
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState("");
+  const navigate = useNavigate();
 
   const experienceYears = parseInt(docInfo?.experience);
 
@@ -32,6 +32,62 @@ const Appointment = () => {
     setSlotTime("");
     setDocSlots([]);
   };
+
+  const handleBookAppointment = async () => {
+    if (!token) {
+      toast.warn("Please login to book an appointment");
+      return navigate("/login");
+    }
+
+    if (!slotTime) {
+      toast.error("Please select a time slot");
+      return;
+    }
+
+    try {
+     const selectedDate = docSlots[slotIndex][0].datetime;
+
+     const day = selectedDate.getDate();
+     const month = selectedDate.getMonth() + 1;
+     const year = selectedDate.getFullYear();
+
+     const slotDate = day + "_" + month + "_" + year;
+
+      const { data } = await axios.post(
+        backendUrl + "/api/user/book-appointment",
+        {
+          docId,
+          slotDate,
+          slotTime,
+        },
+        {
+          headers: {
+            token,
+          },
+        },
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+
+        // Refresh doctors so updated slots are available
+        getDoctorsData();
+        navigate("/my-appointments");
+
+        // Reset selected time
+        setSlotTime("");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+
+      toast.error(
+        error.response?.data?.message || "Failed to book appointment",
+      );
+    }
+  };
+
   // Fetch doctor and slots when docId changes
   useEffect(() => {
     initializeBookingState();
@@ -182,7 +238,10 @@ const Appointment = () => {
             {/* Button */}
 
             {docInfo.available ? (
-              <button className="bg-primary my-8 rounded-full px-14 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-[1.02]">
+              <button
+                onClick={handleBookAppointment}
+                className="bg-primary my-8 rounded-full px-14 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-[1.02]"
+              >
                 Book an appointment
               </button>
             ) : (

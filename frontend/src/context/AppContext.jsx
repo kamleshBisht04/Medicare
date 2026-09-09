@@ -10,7 +10,8 @@ export const AppContextProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [doctors, setDoctors] = useState([]);
   const [token, setToken] = useState(
-    localStorage.getItem("token") ? localStorage.getItem("token") : false, );
+    localStorage.getItem("token") ? localStorage.getItem("token") : false,
+  );
   const [userData, setUserData] = useState(false);
 
   const loadUserProfileData = async () => {
@@ -32,36 +33,37 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
+  const getDoctorsData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/doctor/list");
+
+      if (data.success) {
+        setDoctors(data.doctors);
+      } else {
+        toast.error(data.message || "Failed to fetch doctors");
+      }
+    } catch (error) {
+      console.log("Error fetching doctors:", error);
+
+      toast.error(error.response?.data?.message || "Unable to fetch doctors");
+    }
+  };
+
   useEffect(() => {
     if (token) {
+      //  eslint-disable-next-line react-hooks/set-state-in-effect
       loadUserProfileData();
     }
   }, [token]);
 
   useEffect(() => {
-    const getDoctorsData = async () => {
-      try {
-        const { data } = await axios.get(backendUrl + "/api/doctor/list");
-
-        if (data.success) {
-          setDoctors(data.doctors);
-        } else {
-          toast.error(data.message || "Failed to fetch doctors");
-        }
-      } catch (error) {
-        console.log("Error fetching doctors:", error);
-
-        toast.error(error.response?.data?.message || "Unable to fetch doctors");
-      }
-    };
-
-    if (backendUrl) {
-      getDoctorsData();
-    }
-  }, [backendUrl]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    getDoctorsData();
+  }, []);
 
   const value = {
     doctors,
+    getDoctorsData,
     currencySymbol,
     backendUrl,
     token,
