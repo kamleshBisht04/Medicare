@@ -341,4 +341,25 @@ const bookAppointment = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, getProfile, updateProfile, bookAppointment };
+// API to get Appointment
+
+const getAppointments = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const appointments = await appointmentModel.find({ userId }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      appointments,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { registerUser, loginUser, getProfile, updateProfile, bookAppointment, getAppointments };
