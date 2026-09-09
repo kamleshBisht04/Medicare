@@ -9,10 +9,9 @@ export const AppContextProvider = ({ children }) => {
   const currencySymbol = import.meta.env.VITE_CURRENCY_SYMBOL;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [doctors, setDoctors] = useState([]);
-  const [userData, setUserData] = useState(false);
   const [token, setToken] = useState(
-    localStorage.getItem("token") ? localStorage.getItem("token") : false,
-  );
+    localStorage.getItem("token") ? localStorage.getItem("token") : false, );
+  const [userData, setUserData] = useState(false);
 
   const loadUserProfileData = async () => {
     try {
