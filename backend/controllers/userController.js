@@ -142,7 +142,21 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const { name, phone, address, city, pincode, gender, dateOfBirth, bloodGroup, height, weight, emergencyContact, allergies, medicalHistory, } = req.body;
+    const {
+      name,
+      phone,
+      address,
+      city,
+      pincode,
+      gender,
+      dateOfBirth,
+      bloodGroup,
+      height,
+      weight,
+      emergencyContact,
+      allergies,
+      medicalHistory,
+    } = req.body;
 
     const image = req.file;
 
@@ -155,26 +169,35 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    if ( !name || !phone || !address || !city || !pincode || !gender || !dateOfBirth || !bloodGroup || !height || !weight || !emergencyContact || !allergies || !medicalHistory ) {
+    if (
+      !name ||
+      !phone ||
+      !address ||
+      !city ||
+      !pincode ||
+      !gender ||
+      !dateOfBirth ||
+      !bloodGroup ||
+      !height ||
+      !weight ||
+      !emergencyContact ||
+      !allergies ||
+      !medicalHistory
+    ) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
       });
     }
 
-    if (!image) {
-      return res.status(400).json({
-        success: false,
-        message: "Profile photo required",
+    // Update image only when user selects a new image
+    if (image) {
+      const imageUpload = await cloudinary.uploader.upload(image.path, {
+        resource_type: "image",
       });
+
+      user.image = imageUpload.secure_url;
     }
-
-    // Upload profile image
-    const imageUpload = await cloudinary.uploader.upload(image.path, {
-      resource_type: "image",
-    });
-
-    user.image = imageUpload.secure_url;
 
     // Update profile fields
     const updateFields = {
