@@ -17,6 +17,7 @@ const Appointment = () => {
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState("");
+  const [isBooking, setIsBooking] = useState(false);
   const navigate = useNavigate();
 
   const experienceYears = parseInt(docInfo?.experience);
@@ -34,6 +35,8 @@ const Appointment = () => {
   };
 
   const handleBookAppointment = async () => {
+    if (isBooking) return;
+    setIsBooking(true);
     if (!token) {
       toast.warn("Please login to book an appointment");
       return navigate("/login");
@@ -45,13 +48,13 @@ const Appointment = () => {
     }
 
     try {
-     const selectedDate = docSlots[slotIndex][0].datetime;
+      const selectedDate = docSlots[slotIndex][0].datetime;
 
-     const day = selectedDate.getDate();
-     const month = selectedDate.getMonth() + 1;
-     const year = selectedDate.getFullYear();
+      const day = selectedDate.getDate();
+      const month = selectedDate.getMonth() + 1;
+      const year = selectedDate.getFullYear();
 
-     const slotDate = day + "_" + month + "_" + year;
+      const slotDate = day + "_" + month + "_" + year;
 
       const { data } = await axios.post(
         backendUrl + "/api/user/book-appointment",
@@ -85,6 +88,8 @@ const Appointment = () => {
       toast.error(
         error.response?.data?.message || "Failed to book appointment",
       );
+    } finally {
+      setIsBooking(false);
     }
   };
 
@@ -240,9 +245,10 @@ const Appointment = () => {
             {docInfo.available ? (
               <button
                 onClick={handleBookAppointment}
-                className="bg-primary my-8 rounded-full px-14 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-[1.02]"
+                disabled={isBooking}
+                className={`my-8 rounded-full px-14 py-3 text-sm font-medium shadow-md transition-all duration-300 hover:scale-[1.02] ${isBooking ? "cursor-not-allowed bg-gray-400" : "bg-primary text-white"}`}
               >
-                Book an appointment
+                Book Appointment
               </button>
             ) : (
               <p className="mt-3 text-sm font-medium text-red-500">

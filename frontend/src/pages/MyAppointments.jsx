@@ -9,7 +9,7 @@ import { CalendarDays, Clock, MapPin, CreditCard, X } from "lucide-react";
 import { formatSlotDate } from "../data/formatDate";
 
 const MyAppointments = () => {
-  const { backendUrl, token } = useAppContext();
+  const { backendUrl, token, getDoctorsData } = useAppContext();
   const [appointments, setAppointments] = useState([]);
 
   const getUserAppointments = async () => {
@@ -34,6 +34,26 @@ const MyAppointments = () => {
     }
   };
 
+  const cancelAppointment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/user/cancel-appointment",
+        { appointmentId },
+        { headers: { token } },
+      );
+      if (data.success) {
+        toast.success(data.message);
+        getUserAppointments();
+        getDoctorsData();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
   useEffect(() => {
     if (token) {
       getUserAppointments();
@@ -43,13 +63,13 @@ const MyAppointments = () => {
   return (
     <div>
       {/* Heading */}
-      <p className="mt-12 border-b border-gray-200 pb-3 text-2xl font-medium text-zinc-700">
+      <p className="mt-10 border-b border-gray-200 pb-3 text-2xl font-medium text-zinc-700">
         My appointments
       </p>
 
       {/* Top Status Bar */}
-      <div className="border-t border-zinc-100  px-5 py-3">
-        <p className="text-xs text-zinc-700">
+      <div className="border-t border-zinc-100 px-5 py-3">
+        <p className="text-xs  bg-green-600 text-white inline-block px-4 py-1 rounded-2xl">
           Please arrive 10–15 minutes before your appointment time.
         </p>
       </div>
@@ -78,8 +98,10 @@ const MyAppointments = () => {
                     {item.docData.name}
                   </p>
 
-                  <span className="rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-600">
-                    Confirmed
+                  <span
+                    className={`rounded-full px-2.5 py-1 text-xs font-medium ${item.cancelled ? "bg-red-50 text-red-600" : "bg-green-50 text-green-600"} `}
+                  >
+                    {item.cancelled ? "Cancelled" : "Confirmed"}
                   </span>
                 </div>
 
@@ -133,16 +155,32 @@ const MyAppointments = () => {
               </div>
 
               {/* Buttons */}
-              <div className="col-span-2 flex flex-col justify-end gap-2 sm:w-48">
-                <button className="flex items-center justify-center gap-2 rounded-lg border border-indigo-500 px-4 py-2 text-sm text-indigo-600 transition-all duration-300 hover:bg-indigo-500 hover:text-white">
-                  <CreditCard className="h-4 w-4" />
-                  Pay Online
-                </button>
+              <div className="col-span-2 flex flex-col justify-end gap-2 sm:w-52">
+                {!item.cancelled && (
+                  <button className="flex items-center justify-center gap-2 rounded-lg border border-indigo-500 px-4 py-2 text-sm text-indigo-600 transition-all duration-300 hover:bg-indigo-500 hover:text-white">
+                    <CreditCard className="h-4 w-4" />
+                    Pay Online
+                  </button>
+                )}
 
-                <button className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm text-zinc-500 transition-all duration-300 hover:border-red-500 hover:bg-red-500 hover:text-white">
-                  <X className="h-4 w-4" />
-                  Cancel appointment
-                </button>
+                {!item.cancelled && (
+                  <button
+                    onClick={() => cancelAppointment(item._id)}
+                    className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm whitespace-nowrap text-zinc-500 transition-all duration-300 hover:border-red-500 hover:bg-red-500 hover:text-white"
+                  >
+                    <X className="h-4 w-4" />
+                    Cancel appointment
+                  </button>
+                )}
+                {item.cancelled && (
+                  <button
+                    onClick={() => cancelAppointment(item._id)}
+                    className="flex items-center justify-center gap-2 rounded-lg border border-red-400 px-4 py-2 text-sm whitespace-nowrap text-red-400 transition-all duration-300 hover:border-red-400"
+                  >
+                    <X className="h-4 w-4" />
+                    Cancel appointment
+                  </button>
+                )}
               </div>
             </div>
           </div>
