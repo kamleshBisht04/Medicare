@@ -341,7 +341,7 @@ const bookAppointment = async (req, res) => {
   }
 };
 
-// API to get Appointment
+// API to get Appointment for user to frontend UI
 
 const getAppointments = async (req, res) => {
   try {
@@ -362,4 +362,60 @@ const getAppointments = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, getProfile, updateProfile, bookAppointment, getAppointments };
+// API to cancel Appointment for user to frontend UI
+
+const cancelAppointment = async (req, res) => {
+  try {
+    const { appointmentId } = req.body;
+    const userId = req.userId;
+
+    if (!appointmentId) {
+      return res.status(400).json({
+        success: false,
+        message: "Appointment ID is required",
+      });
+    }
+    // Find user's appointment
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    // verified appointment user
+    if (appointmentData.userId !== userId) {
+      return res.status(400).json({
+        success: false,
+        message: "Unauthorized action !",
+      });
+    }
+
+    await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true });
+
+    // releasing doctor slot
+
+    const { docId, slotDate, slotTime } = appointmentData;
+    const doctorData = await doctorModel.findById(docId);
+
+    let slots_booked = doctorData.slots_booked;
+    slots_booked[slotDate] = slots_booked[slotDate].filter((e) => e !== slotTime);
+
+    await doctorModel.findByIdAndUpdate(docId, { slots_booked });
+    return res.status(200).json({
+      success: true,
+      message: "Appointment cancelled ",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  getProfile,
+  updateProfile,
+  bookAppointment,
+  getAppointments,
+  cancelAppointment,
+};
