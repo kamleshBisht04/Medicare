@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { assets } from "../assets/assets";
 import Input from "../components/Input";
+import { useAppContext } from "../hooks/useAppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +11,7 @@ const Contact = () => {
     email: "",
     message: "",
   });
+  const { backendUrl } = useAppContext();
 
   const handleChange = (e) => {
     setFormData({
@@ -16,9 +20,29 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/contact/send-message",
+        formData,
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
   };
 
   return (
