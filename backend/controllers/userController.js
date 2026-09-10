@@ -375,14 +375,25 @@ const cancelAppointment = async (req, res) => {
         message: "Appointment ID is required",
       });
     }
+
     // Find user's appointment
     const appointmentData = await appointmentModel.findById(appointmentId);
+    // console.log(appointmentData);
 
     // verified appointment user
+
     if (appointmentData.userId !== userId) {
       return res.status(400).json({
         success: false,
         message: "Unauthorized action !",
+      });
+    }
+
+    // Check if appointment is already cancelled
+    if (appointmentData.cancelled) {
+      return res.status(400).json({
+        success: false,
+        message: "Appointment is already cancelled",
       });
     }
 
