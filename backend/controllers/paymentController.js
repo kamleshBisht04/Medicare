@@ -40,7 +40,7 @@ const paymentRazorpay = async (req, res) => {
 
     const options = {
       amount: appointment.amount * 100,
-      currency: import.meta.env.VITE_CURRENCY,
+      currency: process.env.VITE_CURRENCY,
       receipt: `appointment_${appointmentId}`,
     };
 
@@ -51,7 +51,8 @@ const paymentRazorpay = async (req, res) => {
       userId,
       appointmentId,
       razorpayOrderId: order.id,
-      currency: import.meta.env.VITE_CURRENCY,
+      currency: process.env.VITE_CURRENCY,
+      amount: appointment.amount,
       status: "created",
     });
 
