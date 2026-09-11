@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/set-state-in-effect */
-
 import { useAppContext } from "../hooks/useAppContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -9,9 +8,10 @@ import { CalendarDays, Clock, MapPin, CreditCard, X } from "lucide-react";
 import { formatSlotDate } from "../data/formatDate";
 
 const MyAppointments = () => {
-  const { backendUrl, token, getDoctorsData } = useAppContext();
+  const { backendUrl, token, getDoctorsData, userData } = useAppContext();
   const [appointments, setAppointments] = useState([]);
 
+  //  to get all appointments
   const getUserAppointments = async () => {
     try {
       const { data } = await axios.get(
@@ -34,6 +34,72 @@ const MyAppointments = () => {
     }
   };
 
+  //function to start the roazerpay
+
+  const initPay = (order) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: "Medicare",
+      description: "Doctor Appointment",
+      order_id: order.id,
+
+      handler: async (response) => {
+        try {
+          // razorpay_payment_id, razorpay_order_id, razorpay_signature
+          const { data } = await axios.post(
+            backendUrl + "/api/payment-roserpay/verify",
+            response,
+            { headers: { token } },
+          );
+
+          if (data.success) {
+            toast.success("Payment successful");
+            // Appointments reload
+            getUserAppointments();
+          } else {
+            toast.error(data.message || "Payment verification failed");
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error("Payment verification failed");
+        }
+      },
+      prefill: {
+        name: userData?.name || "",
+        email: userData?.email || "",
+      },
+      theme: {
+        color: "#4F46E5",
+      },
+    };
+    // create instance and open it
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  //  handle the payment
+  const handlePayment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/payment-roserpay/create-order",
+        { appointmentId },
+        { headers: { token } },
+      );
+
+      if (data.success) {
+        initPay(data.order);
+      } else {
+        toast.error(data.message || "Failed to create order");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  // cancel the appointment
   const cancelAppointment = async (appointmentId) => {
     try {
       const { data } = await axios.post(
@@ -69,7 +135,7 @@ const MyAppointments = () => {
 
       {/* Top Status Bar */}
       <div className="border-t border-zinc-100 px-5 py-3">
-        <p className="text-xs  bg-green-600 text-white inline-block px-4 py-1 rounded-2xl">
+        <p className="inline-block rounded-2xl bg-green-600 px-4 py-1 text-xs text-white">
           Please arrive 10–15 minutes before your appointment time.
         </p>
       </div>
@@ -157,7 +223,10 @@ const MyAppointments = () => {
               {/* Buttons */}
               <div className="col-span-2 flex flex-col justify-end gap-2 sm:w-52">
                 {!item.cancelled && (
-                  <button className="flex items-center justify-center gap-2 rounded-lg border border-indigo-500 px-4 py-2 text-sm text-indigo-600 transition-all duration-300 hover:bg-indigo-500 hover:text-white">
+                  <button
+                    onClick={() => handlePayment(item._id)}
+                    className="flex items-center justify-center gap-2 rounded-lg border border-indigo-500 px-4 py-2 text-sm text-indigo-600 transition-all duration-300 hover:bg-indigo-500 hover:text-white"
+                  >
                     <CreditCard className="h-4 w-4" />
                     Pay Online
                   </button>
