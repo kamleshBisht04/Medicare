@@ -25,7 +25,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
 app.use("/api/user", userRouter);
 app.use("/api/contact", contactRouter);
-app.use("/api/payment-roserpay", paymentRouter);
+app.use("/api/payment-razorpay", paymentRouter);
 
 app.get("/", (req, res) => {
   res.send("API IS WORKING");
