@@ -8,7 +8,7 @@ import { CalendarDays, Clock, MapPin, CreditCard, X } from "lucide-react";
 import { formatSlotDate } from "../data/formatDate";
 
 const MyAppointments = () => {
-  const { backendUrl, token, getDoctorsData, userData } = useAppContext();
+  const { backendUrl, token, getDoctorsData } = useAppContext();
   const [appointments, setAppointments] = useState([]);
 
   //  to get all appointments
@@ -34,8 +34,7 @@ const MyAppointments = () => {
     }
   };
 
-  //function to start the roazerpay
-
+  // Initialize Razorpay payment
   const initPay = (order) => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -46,56 +45,72 @@ const MyAppointments = () => {
       order_id: order.id,
 
       handler: async (response) => {
+        console.log("SUCCESS RESPONSE:", response);
         try {
-          // razorpay_payment_id, razorpay_order_id, razorpay_signature
           const { data } = await axios.post(
-            backendUrl + "/api/payment-roserpay/verify",
-            response,
-            { headers: { token } },
+            backendUrl + "/api/payment-razorpay/verify-payment",
+            {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            },
+            {
+              headers: {
+                token,
+              },
+            },
           );
 
           if (data.success) {
             toast.success("Payment successful");
-            // Appointments reload
+
+            // appointments ko refresh karo
             getUserAppointments();
+            
           } else {
-            toast.error(data.message || "Payment verification failed");
+            toast.error(data.message);
           }
         } catch (error) {
-          console.log(error);
-          toast.error("Payment verification failed");
+          console.error("VERIFY PAYMENT ERROR:", error);
+          toast.error(
+            error.response?.data?.message || "Payment verification failed",
+          );
         }
       },
-      prefill: {
-        name: userData?.name || "",
-        email: userData?.email || "",
-      },
-      theme: {
-        color: "#4F46E5",
-      },
     };
-    // create instance and open it
+
     const rzp = new window.Razorpay(options);
+
+    rzp.on("payment.failed", (response) => {
+      toast.error(response.error?.description || "Payment failed");
+    });
+
+    rzp.on("modal.ondismiss", () => {
+      console.log("Razorpay checkout closed");
+    });
+
     rzp.open();
   };
-
-  //  handle the payment
+  // Handle the payment
   const handlePayment = async (appointmentId) => {
     try {
       const { data } = await axios.post(
-        backendUrl + "/api/payment-roserpay/create-order",
+        backendUrl + "/api/payment-razorpay/create-order",
         { appointmentId },
         { headers: { token } },
       );
 
       if (data.success) {
+        // Order mil gaya, ab Razorpay checkout open karo
         initPay(data.order);
       } else {
-        toast.error(data.message || "Failed to create order");
+        toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.message || "Something went wrong");
+      console.error(error);
+      toast.error(
+        error.response?.data?.message || "Unable to create payment order",
+      );
     }
   };
 
