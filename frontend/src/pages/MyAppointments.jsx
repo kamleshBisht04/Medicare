@@ -2,14 +2,16 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useAppContext } from "../hooks/useAppContext";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { CalendarDays, Clock, MapPin, CreditCard, X } from "lucide-react";
 import { formatSlotDate } from "../data/formatDate";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const MyAppointments = () => {
   const { backendUrl, token, getDoctorsData } = useAppContext();
   const [appointments, setAppointments] = useState([]);
+  const navigate = useNavigate();
 
   //  to get all appointments
   const getUserAppointments = async () => {
@@ -63,10 +65,9 @@ const MyAppointments = () => {
 
           if (data.success) {
             toast.success("Payment successful");
-
             // appointments ko refresh karo
             getUserAppointments();
-            
+            navigate("/my-appointments");
           } else {
             toast.error(data.message);
           }
@@ -91,6 +92,7 @@ const MyAppointments = () => {
 
     rzp.open();
   };
+  // ===================================================
   // Handle the payment
   const handlePayment = async (appointmentId) => {
     try {
@@ -237,7 +239,7 @@ const MyAppointments = () => {
 
               {/* Buttons */}
               <div className="col-span-2 flex flex-col justify-end gap-2 sm:w-52">
-                {!item.cancelled && (
+                {!item.cancelled && !item.payment && (
                   <button
                     onClick={() => handlePayment(item._id)}
                     className="flex items-center justify-center gap-2 rounded-lg border border-indigo-500 px-4 py-2 text-sm text-indigo-600 transition-all duration-300 hover:bg-indigo-500 hover:text-white"
@@ -269,8 +271,6 @@ const MyAppointments = () => {
             </div>
           </div>
         ))}
-
-        {/* Bottom Status Bar */}
       </div>
     </div>
   );

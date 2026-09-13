@@ -1,9 +1,13 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { assets } from "../assets/assets";
-import { daysOfWeek, getAvailableSlots, relatedDoctors, } from "../data/appointmentSlots";
+import {
+  daysOfWeek,
+  getAvailableSlots,
+  relatedDoctors,
+} from "../data/appointmentSlots";
 import DoctorBookingCard from "../components/DoctorBookingCard";
 import { useAppContext } from "../hooks/useAppContext";
 import { toast } from "react-toastify";
@@ -19,6 +23,7 @@ const Appointment = () => {
   const [slotTime, setSlotTime] = useState("");
   const [isBooking, setIsBooking] = useState(false);
   const navigate = useNavigate();
+  const timeSlotsRef = useRef(null);
 
   const experienceYears = parseInt(docInfo?.experience);
 
@@ -203,7 +208,15 @@ const Appointment = () => {
                 docSlots.map((item, index) => (
                   <div
                     key={index}
-                    onClick={() => setSlotIndex(index)}
+                    onClick={() => {
+                      setSlotIndex(index);
+                      setTimeout(() => {
+                        timeSlotsRef.current?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "center",
+                        });
+                      }, 100);
+                    }}
                     className={`min-w-16 cursor-pointer rounded-2xl border px-4 py-5 text-center transition-all duration-300 ${
                       slotIndex === index
                         ? "border-primary bg-primary text-white shadow-md"
@@ -222,7 +235,10 @@ const Appointment = () => {
             </div>
 
             {/* Time Slots */}
-            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+            <div
+              ref={timeSlotsRef}
+              className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"
+            >
               {docSlots?.length > 0 &&
                 docSlots[slotIndex]?.map((item, index) => (
                   <button

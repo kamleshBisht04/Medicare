@@ -1,22 +1,14 @@
-import Razorpay from "razorpay";
 import appointmentModel from "../models/appointmentModel.js";
 import Payment from "../models/paymentModel.js";
+import razorpayInstance from "../config/rozorpay.js";
 import crypto from "crypto";
 
 //API to make payment of appointment using razorpay
-
-const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
-
 // Create Razorpay Order
 const paymentRazorpay = async (req, res) => {
   try {
     const { appointmentId } = req.body;
     const userId = req.userId;
-
-   
 
     const appointment = await appointmentModel.findById(appointmentId);
 
@@ -49,7 +41,6 @@ const paymentRazorpay = async (req, res) => {
 
     const order = await razorpayInstance.orders.create(options);
 
-
     // Save payment details in database
 
     const payment = await Payment.create({
@@ -78,8 +69,6 @@ const paymentRazorpay = async (req, res) => {
 
 // Verify Razorpay Payment
 const verifyPayment = async (req, res) => {
-  console.log("VERIFY BODY:", req.body);
-
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
@@ -133,6 +122,7 @@ const verifyPayment = async (req, res) => {
     // Update appointment
     await appointmentModel.findByIdAndUpdate(payment.appointmentId, {
       paymentStatus: "paid",
+      payment: true,
     });
 
     return res.status(200).json({
