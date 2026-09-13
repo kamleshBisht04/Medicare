@@ -191,7 +191,7 @@ const MyAppointments = () => {
                   <span
                     className={`rounded-full px-2.5 py-1 text-xs font-medium ${item.cancelled ? "bg-red-50 text-red-600" : "bg-green-50 text-green-600"} `}
                   >
-                    {item.cancelled ? "Cancelled" : "Confirmed"}
+                    {item.status }
                   </span>
                 </div>
 
