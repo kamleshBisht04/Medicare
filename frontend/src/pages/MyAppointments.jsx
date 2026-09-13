@@ -3,7 +3,14 @@
 import { useAppContext } from "../hooks/useAppContext";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { CalendarDays, Clock, MapPin, CreditCard, X } from "lucide-react";
+import {
+  CalendarDays,
+  Clock,
+  MapPin,
+  CreditCard,
+  X,
+  CircleCheck,
+} from "lucide-react";
 import { formatSlotDate } from "../data/formatDate";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -239,6 +246,16 @@ const MyAppointments = () => {
 
               {/* Buttons */}
               <div className="col-span-2 flex flex-col justify-end gap-2 sm:w-52">
+                {item.payment && !item.cancelled && (
+                  <button
+                    onClick={() => handlePayment(item._id)}
+                    className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-green-600 px-1 py-2 text-sm text-white transition-all duration-300"
+                  >
+                    <CircleCheck className="h-4 w-4" />
+                    Paid
+                  </button>
+                )}
+
                 {!item.cancelled && !item.payment && (
                   <button
                     onClick={() => handlePayment(item._id)}
