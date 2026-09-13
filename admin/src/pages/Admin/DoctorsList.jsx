@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { assets } from "../../assets/assets";
 import useAdmin from "../../hooks/useAdmin";
@@ -12,7 +13,7 @@ const DoctorsList = () => {
   }, [aToken]);
 
   return (
-    <div className="mt-20 w-full px-16 pb-8 sm:px-6 md:px-10 lg:px-16">
+    <div className="mt-12 min-h-screen w-full bg-[#f8fafc] p-4 sm:p-5 lg:p-6">
       {/* Heading */}
       <div className="mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">Doctors List</h2>
@@ -30,11 +31,11 @@ const DoctorsList = () => {
             className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md"
           >
             {/* Image */}
-            <div className="bg-gray-50">
+            <div className="flex h-44 items-center justify-center bg-gradient-to-br from-indigo-100 via-blue-50 to-cyan-50">
               <img
                 src={doctor.image || assets.upload_area}
                 alt={doctor.name}
-                className="h-52 w-full object-cover"
+                className="h-[140px] w-[140px] rounded-full object-cover shadow-md ring-4 ring-white"
               />
             </div>
 
@@ -94,7 +95,7 @@ const DoctorsList = () => {
                 </p>
                 <input
                   type="checkbox"
-                  className="h-4 w-4 cursor-pointer  accent-green-600"
+                  className="h-4 w-4 cursor-pointer accent-green-600"
                   checked={Boolean(doctor.available)}
                   onChange={() =>
                     handleAvailability(doctor._id, Boolean(doctor.available))

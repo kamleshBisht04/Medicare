@@ -10,6 +10,7 @@ const AdminContextProvider = ({ children }) => {
     localStorage.getItem("aToken") ? localStorage.getItem("aToken") : "",
   );
   const [doctors, setDoctors] = useState([]);
+  const [appointments, setAppointments] = useState([]);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const getAllDoctors = async () => {
@@ -58,6 +59,54 @@ const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const getAllAppointments = async () => {
+    try {
+      const { data } = await axios.get(
+        backendUrl + "/api/admin/all-appointments",
+        {
+          headers: {
+            aToken,
+          },
+        },
+      );
+
+      if (data.success) {
+        setAppointments(data.appointments);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateAppointmentStatus = async (appointmentId, status) => {
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/api/admin/update-appointment-status`,
+        {
+          appointmentId,
+          status,
+        },
+        {
+          headers: {
+            aToken,
+          },
+        },
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+
+        // Appointment list refresh
+        await getAllAppointments();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
   const value = {
     aToken,
     setAToken,
@@ -65,6 +114,10 @@ const AdminContextProvider = ({ children }) => {
     doctors,
     getAllDoctors,
     handleAvailability,
+    appointments,
+    setAppointments,
+    getAllAppointments,
+    updateAppointmentStatus,
   };
   return (
     <AdminContext.Provider value={value}>{children}</AdminContext.Provider>

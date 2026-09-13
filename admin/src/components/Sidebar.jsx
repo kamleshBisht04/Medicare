@@ -8,7 +8,7 @@ const Sidebar = () => {
   const menuItems = aToken ? adminMenu : dToken ? doctorMenu : [];
 
   return (
-    <div className="mt-16  fixed left-0  top-0 z-40 min-h-screen border-r border-gray-200 bg-white shadow-lg">
+    <div className="fixed top-0 left-0 z-30 mt-16 min-h-screen border-r border-gray-200 bg-white shadow-lg sm:z-40">
       <ul className="mt-5 text-[#515151]">
         {menuItems.map((item) => (
           <SidebarItem
@@ -30,7 +30,7 @@ const SidebarItem = ({ to, icon, label }) => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex cursor-pointer items-center gap-3 px-3 py-3.5 md:min-w-60 md:px-9 ${
+        `flex cursor-pointer items-center gap-3 px-3 py-3.5 md:min-w-56 md:px-9 ${
           isActive
             ? "border-primary border-r-4 bg-[#F2F3FF]"
             : "hover:bg-[#F8FAFC]"

@@ -109,7 +109,7 @@ const AddDoctor = () => {
       {loading && <Loader />}
       <form
         onSubmit={handleSubmit}
-        className="mt-20 mb-8 w-full px-[72px] sm:px-6 md:px-10 lg:px-16"
+        className="mt-12 min-h-screen w-full bg-[#f8fafc] p-4 sm:p-5 lg:p-6"
       >
         {/* Page Heading */}
         <h2 className="mb-6 text-2xl font-semibold text-gray-800">
