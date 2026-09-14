@@ -53,6 +53,7 @@ const Dashboard = () => {
   //  STATISTICS
   const statistics = dashData || {
     totalDoctors: 0,
+    totalPatients: 0,
     totalAppointments: 0,
     pendingAppointments: 0,
     confirmedAppointments: 0,
@@ -192,7 +193,7 @@ const Dashboard = () => {
         })}
       </div>
       {/* SECONDARY STATS */}
-      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {SECONDARY_STAT_CONFIG.map((card) => {
           const Icon = card.icon;
 

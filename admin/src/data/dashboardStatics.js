@@ -8,6 +8,7 @@ import {
   CreditCard,
   WalletCards,
   Stethoscope,
+  Users,
 } from "lucide-react";
 
 //    STATIC DATA / CONFIG
@@ -106,6 +107,13 @@ export const SECONDARY_STAT_CONFIG = [
     icon: Clock,
     iconBg: "bg-blue-50",
     iconColor: "text-blue-600",
+  },
+  {
+    key: "totalPatients",
+    title: "Total Patients",
+    icon: Users,
+    iconBg: "bg-emerald-50",
+    iconColor: "text-emerald-600",
   },
 
   {
