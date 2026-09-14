@@ -4,6 +4,7 @@ import { v2 as cloudinary } from "cloudinary";
 import jwt from "jsonwebtoken";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
+import userModel from "../models/userModel.js";
 
 //API for adding doctor
 
@@ -169,7 +170,7 @@ const getAllDoctors = async (req, res) => {
 
 const allAppointments = async (req, res) => {
   try {
-    const appointments = await appointmentModel.find({});
+    const appointments = await appointmentModel.find({}).sort({ createdAt: -1 });
 
     if (appointments.length === 0) {
       return res.status(200).json({
@@ -205,7 +206,7 @@ const updateAppointmentStatus = async (req, res) => {
     }
 
     // Find appointment
-    const appointment = await appointmentModel.findById(appointmentId);
+    const appointment = await appointmentModel.findById(appointmentId).sort({ createdAt: -1 });
 
     if (!appointment) {
       return res.status(404).json({
@@ -247,6 +248,7 @@ const updateAppointmentStatus = async (req, res) => {
 const getDashboardData = async (req, res) => {
   try {
     const totalDoctors = await doctorModel.countDocuments({});
+    const totalPatients = await userModel.countDocuments({});
     const appointments = await appointmentModel.find({}).sort({ createdAt: -1 }).lean();
 
     const totalAppointments = appointments.length;
@@ -306,6 +308,7 @@ const getDashboardData = async (req, res) => {
 
       dashData: {
         totalDoctors,
+        totalPatients,
         totalAppointments,
         pendingAppointments,
         confirmedAppointments,
@@ -330,8 +333,6 @@ const getDashboardData = async (req, res) => {
     });
   }
 };
-
-
 
 export {
   addDoctor,
