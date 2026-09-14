@@ -231,10 +231,7 @@ const updateAppointmentStatus = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message:
-        status === "confirmed"
-          ? "Appointment confirmed successfully"
-          : "Appointment cancelled successfully",
+      message: status === "confirmed" ? "Appointment confirmed " : "Appointment cancelled ",
     });
   } catch (error) {
     console.log(error);
@@ -246,4 +243,99 @@ const updateAppointmentStatus = async (req, res) => {
   }
 };
 
-export { addDoctor, loginAdmin, getAllDoctors, allAppointments, updateAppointmentStatus };
+// GET ADMIN DASHBOARD DATA
+const getDashboardData = async (req, res) => {
+  try {
+    const appointments = await appointmentModel.find({}).sort({ createdAt: -1 }).lean();
+
+    const totalAppointments = appointments.length;
+
+    const pendingAppointments = appointments.filter(
+      (item) => !item.status || item.status === "pending",
+    ).length;
+
+    const confirmedAppointments = appointments.filter((item) => item.status === "confirmed").length;
+
+    const cancelledAppointments = appointments.filter((item) => item.status === "cancelled").length;
+
+    const paidAppointments = appointments.filter(
+      (item) => item.payment === true || item.paymentStatus === "paid",
+    ).length;
+
+    const pendingPayments = appointments.filter(
+      (item) => item.payment !== true && item.paymentStatus !== "paid",
+    ).length;
+
+    const totalRevenue = appointments
+      .filter((item) => item.payment === true || item.paymentStatus === "paid")
+      .reduce((total, item) => total + Number(item.amount || item.docData?.fees || 0), 0);
+
+    // TODAY'S APPOINTMENTS
+    const today = new Date();
+
+    const todayDate = `${today.getDate()}_${today.getMonth() + 1}_${today.getFullYear()}`;
+
+    const todayAppointments = appointments.filter((item) => item.slotDate === todayDate).length;
+
+    // LAST 7 DAYS APPOINTMENT TREND
+    const appointmentTrend = Array.from({ length: 7 }, (_, index) => {
+      const date = new Date();
+
+      date.setDate(date.getDate() - (6 - index));
+
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+
+      const slotDate = `${day}_${month}_${year}`;
+
+      const count = appointments.filter((item) => item.slotDate === slotDate).length;
+
+      return {
+        name: `${day}/${month}`,
+        appointments: count,
+      };
+    });
+
+    // RECENT APPOINTMENTS
+    const recentAppointments = appointments.slice(0, 6);
+
+    res.status(200).json({
+      success: true,
+
+      dashData: {
+        totalAppointments,
+        pendingAppointments,
+        confirmedAppointments,
+        cancelledAppointments,
+
+        paidAppointments,
+        pendingPayments,
+
+        totalRevenue,
+        todayAppointments,
+
+        appointmentTrend,
+        recentAppointments,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
+export {
+  addDoctor,
+  loginAdmin,
+  getAllDoctors,
+  allAppointments,
+  updateAppointmentStatus,
+  getDashboardData,
+};

@@ -5,6 +5,7 @@ import {
   addDoctor,
   allAppointments,
   getAllDoctors,
+  getDashboardData,
   loginAdmin,
   updateAppointmentStatus,
 } from "../controllers/adminController.js";
@@ -18,5 +19,6 @@ adminRouter.get("/doctor-list", authAdmin, getAllDoctors);
 adminRouter.post("/change-availability", authAdmin, changeAvailablity);
 adminRouter.get("/all-appointments", authAdmin, allAppointments);
 adminRouter.post("/update-appointment-status", authAdmin, updateAppointmentStatus);
+adminRouter.get("/dashboard", authAdmin, getDashboardData);
 
 export default adminRouter;
