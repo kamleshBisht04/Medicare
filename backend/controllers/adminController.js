@@ -334,6 +334,77 @@ const getDashboardData = async (req, res) => {
   }
 };
 
+// API for geting appointment data particular date
+const getDashboardDateData = async (req, res) => {
+  try {
+    const { date } = req.query;
+
+    if (!date) {
+      return res.status(400).json({
+        success: false,
+        message: "Date is required",
+      });
+    }
+
+    // HTML date: 2026-09-14
+    // Appointment date: 14_9_2026
+
+    const selectedDate = new Date(date);
+
+    const day = selectedDate.getDate();
+    const month = selectedDate.getMonth() + 1;
+    const year = selectedDate.getFullYear();
+
+    const slotDate = `${day}_${month}_${year}`;
+
+    const appointments = await appointmentModel.find({ slotDate }).sort({ slotTime: 1 }).lean();
+
+    const totalAppointments = appointments.length;
+
+    const confirmedAppointments = appointments.filter((item) => item.status === "confirmed").length;
+
+    const pendingAppointments = appointments.filter(
+      (item) => !item.status || item.status === "pending",
+    ).length;
+
+    const cancelledAppointments = appointments.filter((item) => item.status === "cancelled").length;
+
+    const paidAppointments = appointments.filter(
+      (item) => item.payment === true || item.paymentStatus === "paid",
+    ).length;
+
+    const pendingPayments = appointments.filter(
+      (item) => item.payment !== true && item.paymentStatus !== "paid",
+    ).length;
+
+    const totalRevenue = appointments
+      .filter((item) => item.payment === true || item.paymentStatus === "paid")
+      .reduce((total, item) => total + Number(item.amount || item.docData?.fees || 0), 0);
+
+    return res.status(200).json({
+      success: true,
+
+      data: {
+        date: slotDate,
+        totalAppointments,
+        confirmedAppointments,
+        pendingAppointments,
+        cancelledAppointments,
+        paidAppointments,
+        pendingPayments,
+        totalRevenue,
+        appointments,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 export {
   addDoctor,
   loginAdmin,
@@ -341,4 +412,5 @@ export {
   allAppointments,
   updateAppointmentStatus,
   getDashboardData,
+  getDashboardDateData,
 };
