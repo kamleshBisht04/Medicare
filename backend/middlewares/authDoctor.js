@@ -1,26 +1,27 @@
 import jwt from "jsonwebtoken";
 
-const authAdmin = async (req, res, next) => {
+const authDoctor = async (req, res, next) => {
   try {
-    const { atoken } = req.headers;
-
-    if (!atoken) {
+    const { dtoken } = req.headers;
+   
+  
+    if (!dtoken) {
       return res.status(401).json({
         success: false,
         message: "Not Authorized. Login again",
       });
     }
 
-    const token_decode = jwt.verify(atoken, process.env.JWT_SECRET);
-
-    if (token_decode.role !== "admin") {
+    const token_decode = jwt.verify(dtoken, process.env.JWT_SECRET);
+   
+    if (token_decode.role !== "doctor") {
       return res.status(403).json({
         success: false,
         message: "Access denied",
       });
     }
 
-    req.admin = token_decode;
+    req.doctor = token_decode;
 
     next();
   } catch (error) {
@@ -31,4 +32,4 @@ const authAdmin = async (req, res, next) => {
   }
 };
 
-export default authAdmin;
+export default authDoctor;
