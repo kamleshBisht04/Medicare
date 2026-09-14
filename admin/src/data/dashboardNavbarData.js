@@ -1,8 +1,9 @@
+import { useMemo } from "react";
 import { assets } from "../assets/assets";
 
 export const adminMenu = [
   {
-    to: "/admin-dashboard",
+    to: "/",
     icon: assets.home_icon,
     label: "Dashboard",
   },
@@ -21,18 +22,16 @@ export const adminMenu = [
     icon: assets.people_icon,
     label: "Doctors List",
   },
-//   {
-//     to: "/setting",
-//     icon: assets.setting_icon,
-//     label: "Setting",
-//   },
-
-
+  //   {
+  //     to: "/setting",
+  //     icon: assets.setting_icon,
+  //     label: "Setting",
+  //   },
 ];
 
 export const doctorMenu = [
   {
-    to: "/doctor-dashboard",
+    to: "/",
     icon: assets.home_icon,
     label: "Dashboard",
   },
@@ -47,3 +46,5 @@ export const doctorMenu = [
     label: "Profile",
   },
 ];
+
+//  STATISTICS

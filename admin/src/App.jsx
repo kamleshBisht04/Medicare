@@ -19,8 +19,8 @@ const App = () => {
         <Sidebar />
         <main className=" w-full min-h-screen flex-1 pt-6 sm:ml-64">
           <Routes>
-            <Route path="/" element={<></>} />
-            <Route path="/admin-dashboard" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard/>} />
+            {/* <Route path="/admin-dashboard" element={<Dashboard />} /> */}
             <Route path="/all-appointments" element={<AllApointment />} />
             <Route path="/add-doctor" element={<AddDoctor />} />
             <Route path="/doctor-list" element={<DoctorsList />} />
