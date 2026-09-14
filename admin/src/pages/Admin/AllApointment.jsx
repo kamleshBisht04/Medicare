@@ -13,7 +13,7 @@ const AllAppointments = () => {
     getAllAppointments,
     updateAppointmentStatus,
   } = useAdmin();
-  console.log(appointments);
+
   useEffect(() => {
     if (aToken) {
       getAllDoctors();

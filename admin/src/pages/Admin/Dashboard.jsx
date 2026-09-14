@@ -1,8 +1,5 @@
-/* eslint-disable react-hooks/preserve-manual-memoization */
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import { useEffect, useMemo } from "react";
-import useAdmin from "../../hooks/useAdmin";
 
 import {
   CalendarDays,
@@ -37,76 +34,35 @@ import {
   STATUS_CHART_CONFIG,
   STATUS_CONFIG,
 } from "../../data/dashboardStatics";
+import useAdmin from "../../hooks/useAdmin";
 
 //  DASHBOARD
 
 const Dashboard = () => {
-  const { appointments, aToken, getAllAppointments } = useAdmin();
+  const { aToken, dashData, getDashboardData } = useAdmin();
 
   //  FETCH DATA
   useEffect(() => {
     if (aToken) {
-      getAllAppointments();
+      getDashboardData();
     }
   }, [aToken]);
 
   //  BASIC DATA
 
-  const appointmentList = appointments || [];
-
-  const today = new Date();
-
-  const todayDate = `${today.getDate()}_${
-    today.getMonth() + 1
-  }_${today.getFullYear()}`;
-
   //  STATISTICS
-
-  const statistics = useMemo(() => {
-    const totalAppointments = appointmentList.length;
-
-    const pendingAppointments = appointmentList.filter(
-      (item) => !item.status || item.status === "pending",
-    ).length;
-
-    const confirmedAppointments = appointmentList.filter(
-      (item) => item.status === "confirmed",
-    ).length;
-
-    const cancelledAppointments = appointmentList.filter(
-      (item) => item.status === "cancelled",
-    ).length;
-
-    const paidAppointments = appointmentList.filter(
-      (item) => item.payment === true || item.paymentStatus === "paid",
-    ).length;
-
-    const pendingPayments = appointmentList.filter(
-      (item) => item.payment !== true && item.paymentStatus !== "paid",
-    ).length;
-
-    const totalRevenue = appointmentList
-      .filter((item) => item.payment === true || item.paymentStatus === "paid")
-      .reduce(
-        (total, item) => total + Number(item.amount || item.docData?.fees || 0),
-        0,
-      );
-
-    const todayAppointments = appointmentList.filter(
-      (item) => item.slotDate === todayDate,
-    ).length;
-
-    return {
-      totalAppointments,
-      pendingAppointments,
-      confirmedAppointments,
-      cancelledAppointments,
-      paidAppointments,
-      pendingPayments,
-      totalRevenue,
-      todayAppointments,
-    };
-  }, [appointmentList, todayDate]);
+  const statistics = dashData || {
+    totalAppointments: 0,
+    pendingAppointments: 0,
+    confirmedAppointments: 0,
+    cancelledAppointments: 0,
+    paidAppointments: 0,
+    pendingPayments: 0,
+    totalRevenue: 0,
+    todayAppointments: 0,
+    appointmentTrend: [],
+    recentAppointments: [],
+  };
 
   //  PERCENTAGES
 
@@ -149,39 +105,9 @@ const Dashboard = () => {
     value: statistics[item.key],
   }));
 
-  //  APPOINTMENT TREND
-
-  const appointmentTrend = useMemo(() => {
-    return Array.from({ length: 7 }, (_, index) => {
-      const date = new Date();
-
-      date.setDate(date.getDate() - (6 - index));
-
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
-
-      const slotDate = `${day}_${month}_${year}`;
-
-      const count = appointmentList.filter(
-        (item) => item.slotDate === slotDate,
-      ).length;
-
-      return {
-        name: `${day}/${month}`,
-        appointments: count,
-      };
-    });
-  }, [appointmentList]);
-
+  const appointmentTrend = statistics.appointmentTrend || [];
   //  RECENT APPOINTMENTS
-
-  const recentAppointments = useMemo(() => {
-    return [...appointmentList]
-      .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
-      .slice(0, 6);
-  }, [appointmentList]);
-
+  const recentAppointments = statistics.recentAppointments || [];
   //  STATUS HELPER
 
   const getStatusConfig = (status) => {
@@ -218,7 +144,7 @@ const Dashboard = () => {
             <p className="text-[10px] text-gray-400">Today</p>
 
             <p className="text-xs font-semibold text-gray-700">
-              {dateFormat(today)}
+              {dateFormat(new Date())}
             </p>
           </div>
         </div>
