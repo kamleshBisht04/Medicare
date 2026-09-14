@@ -246,6 +246,7 @@ const updateAppointmentStatus = async (req, res) => {
 // GET ADMIN DASHBOARD DATA
 const getDashboardData = async (req, res) => {
   try {
+    const totalDoctors = await doctorModel.countDocuments({});
     const appointments = await appointmentModel.find({}).sort({ createdAt: -1 }).lean();
 
     const totalAppointments = appointments.length;
@@ -304,6 +305,7 @@ const getDashboardData = async (req, res) => {
       success: true,
 
       dashData: {
+        totalDoctors,
         totalAppointments,
         pendingAppointments,
         confirmedAppointments,
