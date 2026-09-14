@@ -52,6 +52,7 @@ const Dashboard = () => {
 
   //  STATISTICS
   const statistics = dashData || {
+    totalDoctors: 0,
     totalAppointments: 0,
     pendingAppointments: 0,
     confirmedAppointments: 0,
@@ -150,7 +151,7 @@ const Dashboard = () => {
         </div>
       </div>
       {/* TOP STAT CARD */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {STAT_CARD_CONFIG.map((card) => {
           const Icon = card.icon;
 

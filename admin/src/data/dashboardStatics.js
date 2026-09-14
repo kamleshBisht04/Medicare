@@ -7,6 +7,7 @@ import {
   IndianRupee,
   CreditCard,
   WalletCards,
+  Stethoscope,
 } from "lucide-react";
 
 //    STATIC DATA / CONFIG
@@ -36,6 +37,19 @@ export const STATUS_CONFIG = {
 
 /* Top statistics static information */
 export const STAT_CARD_CONFIG = [
+  {
+    key: "totalDoctors",
+    title: "Total Doctors",
+    description: "All registered doctors",
+    icon: Stethoscope,
+    border: "border-indigo-100",
+    iconBg: "bg-indigo-50",
+    iconHover: "group-hover:bg-indigo-100",
+    iconColor: "text-indigo-600",
+    descriptionColor: "text-indigo-600",
+    showTrend: false,
+  },
+
   {
     key: "totalAppointments",
     title: "Total Appointments",
