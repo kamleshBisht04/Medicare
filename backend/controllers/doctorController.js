@@ -34,12 +34,15 @@ const doctorLogin = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );
+    // remove the password
+    const doctorData = doctor.toObject();
+    delete doctorData.password;
 
     return res.status(200).json({
       success: true,
       message: "Doctor login successful",
       token,
-      doctor,
+      doctorData,
     });
   } catch (error) {
     console.log(error);

@@ -3,7 +3,7 @@ import { doctorList, doctorLogin } from "../controllers/doctorController.js";
 
 const doctorRouter = express.Router();
 
-doctorRouter.get("/login", doctorLogin);
+doctorRouter.post("/login", doctorLogin);
 doctorRouter.get("/list", doctorList);
 
 export default doctorRouter;
