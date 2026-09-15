@@ -4,6 +4,7 @@ import { assets } from "@/assets/assets";
 import axios from "axios";
 import Input from "@/components/Input";
 import useAdmin from "@/hooks/useAdmin";
+import useADoctor from "../hooks/useDoctor";
 
 const initialData = {
   email: "",
@@ -13,6 +14,7 @@ const Login = () => {
   const [state, setstate] = useState("Admin");
   const [formData, setFormData] = useState(initialData);
   const { setAToken, backendUrl } = useAdmin();
+  const { setDToken } = useADoctor();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,11 +33,24 @@ const Login = () => {
           password: formData.password,
         });
         if (data.success) {
-          console.log(data);
           localStorage.setItem("aToken", data.token);
           setAToken(data.token);
         } else {
           toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(backendUrl + "/api/doctor/login", {
+          email: formData.email,
+          password: formData.password,
+        });
+        if (data.success) {
+          console.log(data.token);
+          console.log(data);
+
+          localStorage.setItem("dToken", data.token);
+          setDToken(data.token);
+        } else {
+          toast.error(data.token);
         }
       }
     } catch (error) {

@@ -12,6 +12,8 @@ const AdminContextProvider = ({ children }) => {
   const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [dashData, setDashData] = useState(false);
+  const [dateData, setDateData] = useState(false);
+
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -128,6 +130,31 @@ const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const getDashboardDateData = async (date) => {
+    try {
+      const { data } = await axios.get(
+        `${backendUrl}/api/admin/dashboard/date`,
+        {
+          headers: {
+            aToken,
+          },
+          params: {
+            date,
+          },
+        },
+      );
+
+      if (data.success) {
+        setDateData(data.data);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   const value = {
     aToken,
     setAToken,
@@ -141,6 +168,9 @@ const AdminContextProvider = ({ children }) => {
     updateAppointmentStatus,
     dashData,
     getDashboardData,
+    dateData,
+    setDateData,
+    getDashboardDateData,
   };
   return (
     <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
