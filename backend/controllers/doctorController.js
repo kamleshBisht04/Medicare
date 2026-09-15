@@ -36,14 +36,11 @@ const doctorLogin = async (req, res) => {
       { expiresIn: "7d" },
     );
     // remove the password
-    const doctorData = doctor.toObject();
-    delete doctorData.password;
 
     return res.status(200).json({
       success: true,
       message: "Doctor login successful",
       token,
-      doctorData,
     });
   } catch (error) {
     console.log(error);
@@ -100,7 +97,7 @@ const doctorList = async (req, res) => {
 
 const getDoctorAppointment = async (req, res) => {
   try {
-     const doctorId = req.doctor.id;
+    const doctorId = req.doctor.id;
 
     const appointments = await appointmentModel.find({ docId: doctorId }).sort({ createdAt: -1 });
 
@@ -117,4 +114,95 @@ const getDoctorAppointment = async (req, res) => {
   }
 };
 
-export { doctorLogin, changeAvailablity, doctorList, getDoctorAppointment };
+//API doctor to update the status
+
+const updateAppointmentStatus = async (req, res) => {
+  try {
+    const { appointmentId, status } = req.body;
+
+    const allowedStatus = ["pending", "confirmed", "completed", "cancelled"];
+
+    if (!allowedStatus.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid appointment status",
+      });
+    }
+
+    const appointment = await appointmentModel.findById(appointmentId);
+
+    if (!appointment) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found",
+      });
+    }
+
+    // Doctor can update only his own appointment
+    if (appointment.docId.toString() !== req.doctor.id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized to update",
+      });
+    }
+
+    appointment.status = status;
+
+    // Keep cancelled field in sync
+    appointment.cancelled = status === "cancelled";
+
+    await appointment.save();
+
+    return res.status(200).json({
+      success: true,
+      message: `Appointment ${status} `,
+      appointment,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// to get doctor profile for doctor dashboard
+
+const getDoctorProfile = async (req, res) => {
+  try {
+    const docId = req.doctor.id;
+
+    const doctor = await doctorModel.findById(docId).select(["-password", "-slots_booked"]);
+
+    if (!doctor) {
+      return res.status(404).json({
+        success: false,
+        message: "Doctor not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Doctor profile fetched .",
+      doctor,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+    });
+  }
+};
+
+export {
+  doctorLogin,
+  changeAvailablity,
+  doctorList,
+  getDoctorAppointment,
+  updateAppointmentStatus,
+  getDoctorProfile,
+};

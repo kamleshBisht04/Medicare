@@ -193,12 +193,14 @@ const allAppointments = async (req, res) => {
 };
 
 // API to update appointment status
+
 const updateAppointmentStatus = async (req, res) => {
   try {
     const { appointmentId, status } = req.body;
-
     // Validate status
-    if (!["confirmed", "cancelled"].includes(status)) {
+    const allowedStatus = ["confirmed", "completed", "cancelled"];
+
+    if (!allowedStatus.includes(status)) {
       return res.status(400).json({
         success: false,
         message: "Invalid appointment status",
@@ -206,7 +208,7 @@ const updateAppointmentStatus = async (req, res) => {
     }
 
     // Find appointment
-    const appointment = await appointmentModel.findById(appointmentId).sort({ createdAt: -1 });
+    const appointment = await appointmentModel.findById(appointmentId);
 
     if (!appointment) {
       return res.status(404).json({
@@ -218,21 +220,20 @@ const updateAppointmentStatus = async (req, res) => {
     // Update status
     appointment.status = status;
 
-    // If appointment is cancelled
-    if (status === "cancelled") {
-      appointment.cancelled = true;
-    }
-
-    // If appointment is confirmed
-    if (status === "confirmed") {
-      appointment.cancelled = false;
-    }
+    // Update cancelled flag
+    appointment.cancelled = status === "cancelled";
 
     await appointment.save();
 
     return res.status(200).json({
       success: true,
-      message: status === "confirmed" ? "Appointment confirmed " : "Appointment cancelled ",
+      message:
+        status === "confirmed"
+          ? "Appointment confirmed"
+          : status === "completed"
+            ? "Appointment completed "
+            : "Appointment cancelled ",
+      appointment,
     });
   } catch (error) {
     console.log(error);

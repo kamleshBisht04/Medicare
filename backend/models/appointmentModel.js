@@ -42,13 +42,13 @@ const appointmentSchema = new mongoose.Schema(
       required: true,
     },
 
-    cancelled: {
-      type: Boolean,
-      default: false,
-    },
+    // cancelled: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     status: {
       type: String,
-      enum: ["pending", "confirmed", "cancelled"],
+      enum: ["pending", "confirmed", "cancelled", "completed"],
       default: "pending",
     },
 
@@ -63,10 +63,10 @@ const appointmentSchema = new mongoose.Schema(
       default: false,
     },
 
-    isCompleted: {
-      type: Boolean,
-      default: false,
-    },
+    // isCompleted: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
   {
     timestamps: true,
