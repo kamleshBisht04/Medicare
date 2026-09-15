@@ -1,6 +1,7 @@
 import doctorModel from "../models/doctorModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import appointmentModel from "../models/appointmentModel.js";
 
 // API for doctor login
 
@@ -87,6 +88,7 @@ const doctorList = async (req, res) => {
       doctors,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: error.message,
@@ -94,4 +96,25 @@ const doctorList = async (req, res) => {
   }
 };
 
-export { doctorLogin, changeAvailablity, doctorList };
+// GET Doctor Appointments
+
+const getDoctorAppointment = async (req, res) => {
+  try {
+     const doctorId = req.doctor.id;
+
+    const appointments = await appointmentModel.find({ docId: doctorId }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      appointments,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { doctorLogin, changeAvailablity, doctorList, getDoctorAppointment };
