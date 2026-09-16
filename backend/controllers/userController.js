@@ -369,6 +369,7 @@ const cancelAppointment = async (req, res) => {
     const { appointmentId } = req.body;
     const userId = req.userId;
 
+    // CHECK APPOINTMENT ID
     if (!appointmentId) {
       return res.status(400).json({
         success: false,
@@ -376,45 +377,69 @@ const cancelAppointment = async (req, res) => {
       });
     }
 
-    // Find user's appointment
+    // FIND APPOINTMENT
     const appointmentData = await appointmentModel.findById(appointmentId);
-    // console.log(appointmentData);
 
-    // verified appointment user
-
-    if (appointmentData.userId !== userId) {
-      return res.status(400).json({
+    if (!appointmentData) {
+      return res.status(404).json({
         success: false,
-        message: "Unauthorized action !",
+        message: "Appointment not found",
       });
     }
 
-    // Check if appointment is already cancelled
-    if (appointmentData.cancelled) {
+    // VERIFY USER
+    if (appointmentData.userId.toString() !== userId.toString()) {
+      return res.status(400).json({
+        success: false,
+        message: "Unauthorized action!",
+      });
+    }
+
+    // CHECK ALREADY CANCELLED
+    if (appointmentData.cancelled || appointmentData.status === "cancelled") {
       return res.status(400).json({
         success: false,
         message: "Appointment is already cancelled",
       });
     }
 
-    await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true });
+    // UPDATE APPOINTMENT
+    appointmentData.cancelled = true;
+    appointmentData.status = "cancelled";
 
-    // releasing doctor slot
+    await appointmentData.save();
 
+    // RELEASE DOCTOR SLOT
     const { docId, slotDate, slotTime } = appointmentData;
+
     const doctorData = await doctorModel.findById(docId);
 
-    let slots_booked = doctorData.slots_booked;
-    slots_booked[slotDate] = slots_booked[slotDate].filter((e) => e !== slotTime);
+    if (doctorData) {
+      const slots_booked = doctorData.slots_booked || {};
 
-    await doctorModel.findByIdAndUpdate(docId, { slots_booked });
+      if (slots_booked[slotDate]) {
+        slots_booked[slotDate] = slots_booked[slotDate].filter((time) => time !== slotTime);
+
+        await doctorModel.findByIdAndUpdate(docId, {
+          slots_booked,
+        });
+      }
+    }
+
+    // RESPONSE
     return res.status(200).json({
       success: true,
-      message: "Appointment cancelled ",
+      message: "Appointment cancelled",
+      appointment: {
+        _id: appointmentData._id,
+        status: appointmentData.status,
+        cancelled: appointmentData.cancelled,
+      },
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
+    console.log("CANCEL APPOINTMENT ERROR:", error);
+
+    return res.status(500).json({
       success: false,
       message: error.message,
     });

@@ -198,6 +198,68 @@ const getDoctorProfile = async (req, res) => {
   }
 };
 
+// API for doctor dashboard..
+
+const doctorDashboard = async (req, res) => {
+  try {
+    const docId = req.doctor.id;
+
+    const appointments = await appointmentModel.find({ docId }).sort({ createdAt: -1 });
+
+    // Today's date in DD_M_YYYY format
+    const now = new Date();
+
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+
+    const today = `${day}_${month}_${year}`;
+
+    // Today's appointments
+    const todayAppointments = appointments.filter((item) => item.slotDate === today);
+
+    // Completed appointments
+    const completedAppointments = appointments.filter((item) => item.status === "completed");
+
+    // Pending appointments
+    const pendingAppointments = appointments.filter(
+      (item) => !item.status || item.status === "pending",
+    );
+
+    // Earnings from completed appointments
+    const earnings = completedAppointments.reduce(
+      (total, item) => total + Number(item.amount || item.docData?.fees || 0),
+      0,
+    );
+
+    // Latest 5 appointments
+    const recentAppointments = appointments.slice(0, 5);
+
+    res.status(200).json({
+      success: true,
+
+      dashboard: {
+        totalAppointments: appointments.length,
+        todayAppointments: todayAppointments.length,
+        completedAppointments: completedAppointments.length,
+        pendingAppointments: pendingAppointments.length,
+        earnings,
+
+        todayAppointmentsList: todayAppointments,
+
+        recentAppointments,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export {
   doctorLogin,
   changeAvailablity,
@@ -205,4 +267,5 @@ export {
   getDoctorAppointment,
   updateAppointmentStatus,
   getDoctorProfile,
+  doctorDashboard,
 };
