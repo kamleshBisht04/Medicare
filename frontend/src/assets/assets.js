@@ -9,7 +9,7 @@ import header_img3 from "./header_img3.jpg";
 import profile_pic from './profile_pic.png';
 import contact_image from './contact_image.png';
 import about_image from './about_image.png';
-import logo from './medicare_logo.png';
+import logo from "./Medicare_logo.png";
 
 import dropdown_icon from './dropdown_icon.svg';
 import menu_icon from './menu_icon.svg';
@@ -49,7 +49,7 @@ import Gynecologist from './Gynecologist.svg';
 import Neurologist from './Neurologist.svg';
 import Pediatricians from './Pediatricians.svg';
 import Orthopedic from './Orthopedic.png';
-import Cardiologist from './Cardiologist.jpg';
+import Cardiologist from "./cardiologist.jpg";
 
 export const assets = {
   appointment_img,
