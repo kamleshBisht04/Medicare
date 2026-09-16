@@ -50,8 +50,7 @@ const registerUser = async (req, res) => {
     });
 
     const savedUser = await user.save();
-
-    const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: savedUser._id, role: "user" }, process.env.JWT_SECRET);
 
     res.status(201).json({
       success: true,
