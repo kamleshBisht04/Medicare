@@ -22,7 +22,7 @@ const App = () => {
     return (
       <>
         <Login />
-        <ToastContainer />
+        <ToastContainer autoClose={2000} />
       </>
     );
   }

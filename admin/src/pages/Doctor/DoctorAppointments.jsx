@@ -3,7 +3,14 @@
 import { useEffect } from "react";
 import { assets } from "../../assets/assets";
 import useADoctor from "../../hooks/useDoctor";
-import { Check, X, CalendarDays, Clock, IndianRupee } from "lucide-react";
+import {
+  Check,
+  CheckCheck,
+  X,
+  CalendarDays,
+  Clock,
+  IndianRupee,
+} from "lucide-react";
 import { format_Date } from "../../data/formatDate";
 
 const DoctorAppointments = () => {
@@ -20,7 +27,7 @@ const DoctorAppointments = () => {
     }
   }, [dToken]);
 
-  // Confirm / Cancel appointment
+  // Confirm / Complete / Cancel appointment
   const handleAppointmentStatus = async (appointmentId, status) => {
     await updateAppointmentStatus(appointmentId, status);
   };
@@ -159,7 +166,7 @@ const DoctorAppointments = () => {
 
                   {/* Status */}
                   <div>
-                    {item.cancelled ? (
+                    {item.status === "cancelled" ? (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-medium text-red-600 ring-1 ring-red-100 ring-inset">
                         <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
                         Cancelled
@@ -168,6 +175,11 @@ const DoctorAppointments = () => {
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-2.5 py-1 text-[11px] font-medium text-green-700 ring-1 ring-green-100 ring-inset">
                         <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                         Confirmed
+                      </span>
+                    ) : item.status === "completed" ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-medium text-blue-700 ring-1 ring-blue-100 ring-inset">
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                        Completed
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-700 ring-1 ring-amber-100 ring-inset">
@@ -179,22 +191,39 @@ const DoctorAppointments = () => {
 
                   {/* Actions */}
                   <div className="ml-auto flex items-center gap-2">
-                    {item.cancelled ? (
+                    {/* Cancelled / Completed */}
+                    {item.status === "cancelled" ||
+                    item.status === "completed" ? (
                       <span className="text-[11px] text-gray-400">
                         No action
                       </span>
                     ) : item.status === "confirmed" ? (
-                      <button
-                        onClick={() =>
-                          handleAppointmentStatus(item._id, "cancelled")
-                        }
-                        title="Cancel appointment"
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-red-200 bg-white text-red-500 transition-all duration-200 hover:border-red-300 hover:bg-red-50 hover:text-red-600"
-                      >
-                        <X size={16} strokeWidth={2} />
-                      </button>
+                      <>
+                        {/* Complete */}
+                        <button
+                          onClick={() =>
+                            handleAppointmentStatus(item._id, "completed")
+                          }
+                          title="Complete appointment"
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-blue-200 bg-white text-blue-600 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
+                        >
+                          <CheckCheck size={16} strokeWidth={2} />
+                        </button>
+
+                        {/* Cancel */}
+                        <button
+                          onClick={() =>
+                            handleAppointmentStatus(item._id, "cancelled")
+                          }
+                          title="Cancel appointment"
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-red-200 bg-white text-red-500 transition-all duration-200 hover:border-red-300 hover:bg-red-50 hover:text-red-600"
+                        >
+                          <X size={16} strokeWidth={2} />
+                        </button>
+                      </>
                     ) : (
                       <>
+                        {/* Confirm */}
                         <button
                           onClick={() =>
                             handleAppointmentStatus(item._id, "confirmed")
@@ -205,6 +234,7 @@ const DoctorAppointments = () => {
                           <Check size={16} strokeWidth={2} />
                         </button>
 
+                        {/* Cancel */}
                         <button
                           onClick={() =>
                             handleAppointmentStatus(item._id, "cancelled")
@@ -295,7 +325,7 @@ const DoctorAppointments = () => {
 
               {/* Status */}
               <div className="hidden md:block">
-                {item.cancelled ? (
+                {item.status === "cancelled" ? (
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 ring-1 ring-red-100 ring-inset">
                     <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
                     Cancelled
@@ -304,6 +334,11 @@ const DoctorAppointments = () => {
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 ring-1 ring-green-100 ring-inset">
                     <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                     Confirmed
+                  </span>
+                ) : item.status === "completed" ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 ring-1 ring-blue-100 ring-inset">
+                    <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                    Completed
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-700 ring-1 ring-amber-100 ring-inset">
@@ -315,20 +350,36 @@ const DoctorAppointments = () => {
 
               {/* Action */}
               <div className="ml-4 hidden items-center gap-2 md:flex">
-                {item.cancelled ? (
+                {/* Cancelled / Completed */}
+                {item.status === "cancelled" || item.status === "completed" ? (
                   <span className="text-xs text-gray-400">No action</span>
                 ) : item.status === "confirmed" ? (
-                  <button
-                    onClick={() =>
-                      handleAppointmentStatus(item._id, "cancelled")
-                    }
-                    title="Cancel appointment"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-red-200 bg-white text-red-500 transition-all duration-200 hover:border-red-300 hover:bg-red-50 hover:text-red-600"
-                  >
-                    <X size={17} strokeWidth={2} />
-                  </button>
+                  <>
+                    {/* Complete */}
+                    <button
+                      onClick={() =>
+                        handleAppointmentStatus(item._id, "completed")
+                      }
+                      title="Complete appointment"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-blue-200 bg-white text-blue-600 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
+                    >
+                      <CheckCheck size={17} strokeWidth={2} />
+                    </button>
+
+                    {/* Cancel */}
+                    <button
+                      onClick={() =>
+                        handleAppointmentStatus(item._id, "cancelled")
+                      }
+                      title="Cancel appointment"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-red-200 bg-white text-red-500 transition-all duration-200 hover:border-red-300 hover:bg-red-50 hover:text-red-600"
+                    >
+                      <X size={17} strokeWidth={2} />
+                    </button>
+                  </>
                 ) : (
                   <>
+                    {/* Confirm */}
                     <button
                       onClick={() =>
                         handleAppointmentStatus(item._id, "confirmed")
@@ -339,6 +390,7 @@ const DoctorAppointments = () => {
                       <Check size={17} strokeWidth={2} />
                     </button>
 
+                    {/* Cancel */}
                     <button
                       onClick={() =>
                         handleAppointmentStatus(item._id, "cancelled")
