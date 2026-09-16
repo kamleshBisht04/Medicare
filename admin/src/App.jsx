@@ -12,7 +12,7 @@ import AddDoctor from "@/pages/Admin/AddDoctor";
 import DoctorDashboard from "@/pages/Doctor/DoctorDashboard";
 import DoctorAppointments from "@/pages/Doctor/DoctorAppointments";
 import DoctorProfile from "@/pages/Doctor/DoctorProfile";
-import ScrollToTop from "../../frontend/src/components/ScrollToTop";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   const { aToken } = useAdmin();
