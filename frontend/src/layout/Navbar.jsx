@@ -8,11 +8,15 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [showMenu, setShowMenu] = useState(false);
+
   const { token, setToken, userData } = useAppContext();
+
+  const ADMIN_URL = import.meta.env.VITE_ADMIN_URL;
 
   const logout = () => {
     setToken(false);
     localStorage.removeItem("token");
+    setShowMenu(false);
   };
 
   return (
@@ -30,10 +34,21 @@ const Navbar = () => {
         {NavLinks.map((link, index) => (
           <NavLink key={index} to={link.path}>
             {link.name}
+
             <hr className="bg-primary/90 m-auto hidden h-0.5 w-3/5 border-none outline-none" />
           </NavLink>
         ))}
       </ul>
+
+      {/* Desktop Admin Panel */}
+      <a
+        href={ADMIN_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary-text hidden cursor-pointer rounded-full border border-gray-200 px-3 py-1 transition-all duration-300 md:block"
+      >
+        Admin Panel
+      </a>
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
@@ -127,6 +142,17 @@ const Navbar = () => {
 
         {/* Links */}
         <ul className="mt-6 flex flex-col px-5 text-base font-medium">
+          {/* Mobile Admin Panel */}
+          <a
+            href={ADMIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setShowMenu(false)}
+            className="text-primary mb-4 flex items-center justify-center rounded-2xl border border-gray-200 px-5 py-3 text-[15px] font-medium transition-all duration-300 hover:bg-gray-50 active:scale-[0.98]"
+          >
+            Admin Panel
+          </a>
+
           {/* Mobile Profile Section */}
           {token ? (
             <div className="mb-5 border-b border-gray-100 pb-2">
@@ -179,13 +205,17 @@ const Navbar = () => {
             </div>
           ) : (
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => {
+                navigate("/login");
+                setShowMenu(false);
+              }}
               className="bg-primary/85 hover:bg-primary-dark mb-2 rounded-full px-8 py-3 text-white transition-all duration-300 md:hidden"
             >
               Create Account
             </button>
           )}
 
+          {/* Navigation Links */}
           {NavLinks.map((link, index) => (
             <NavLink
               key={index}

@@ -15,7 +15,7 @@ import { ToastContainer } from "react-toastify";
 const App = () => {
   return (
     <>
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
       <ScrollToTop />
       <Navbar />
       <div className="mx-4 mt-[105px] sm:mx-[7.5%]">
