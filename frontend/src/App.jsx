@@ -10,7 +10,7 @@ import Navbar from "@/layout/Navbar";
 import Appointment from "@/pages/Appointment";
 import ScrollToTop from "@/components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
-import Footer from "./layout/Footer";
+import Footer from "@/layout/Footer";
 
 const App = () => {
   return (
